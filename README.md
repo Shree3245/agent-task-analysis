@@ -1,4 +1,4 @@
-# moira
+# Moira
 
 **What do your agent tasks cost—and would a fixed price survive the expensive ones?**
 
