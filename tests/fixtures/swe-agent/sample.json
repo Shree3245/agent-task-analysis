@@ -1,0 +1,25 @@
+{
+  "task_id": "task-1",
+  "task_type": "code",
+  "outcome": "success",
+  "started_at": "2025-01-01T00:00:00Z",
+  "ended_at": "2025-01-01T00:00:01Z",
+  "model": "gpt-4o-mini",
+  "prompt": "__CONTENT_PLACEHOLDER__",
+  "output": "__CONTENT_PLACEHOLDER__",
+  "info": {
+    "exit_status": "submitted"
+  },
+  "trajectory": [
+    {
+      "usage": {
+        "input_tokens": 150,
+        "output_tokens": 20
+      },
+      "action": "__CONTENT_PLACEHOLDER__",
+      "observation": "__CONTENT_PLACEHOLDER__",
+      "response": "__CONTENT_PLACEHOLDER__",
+      "timestamp": "2025-01-01T00:00:00Z"
+    }
+  ]
+}

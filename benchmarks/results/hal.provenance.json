@@ -1,0 +1,28 @@
+{
+  "tasks": 65,
+  "types": 1,
+  "repricing": "UNAVAILABLE",
+  "repricing_agreement": null,
+  "scope": "HAL subset: 1 explicitly downloaded and decrypted evaluations. Decryption used HAL's published script outside this repository.",
+  "benchmark_not_production": true,
+  "download": {
+    "source": "hal",
+    "repo": "agent-evals/hal_traces",
+    "revision": "e7dcedc82b4f4bc819a170fd6616bdb44841c71e",
+    "project": "https://hal.cs.princeton.edu/",
+    "license": "not_specified",
+    "include": "*.zip",
+    "decrypt_script": "https://hal.cs.princeton.edu/static/downloads/hal-decrypt.sh",
+    "selected_files": 1,
+    "available_files": 381,
+    "selection": "scicode_scicode_zero_shot_agent_gpt4120250414_1745265933_UPLOAD.zip",
+    "max_files": null,
+    "files": [
+      {
+        "path": "scicode_scicode_zero_shot_agent_gpt4120250414_1745265933_UPLOAD.zip",
+        "bytes": 4787346,
+        "sha256": "f55342c1710d5d3dfbcd45c4c1e4dcdec778070038ae73b19caaa086bf55ebe1"
+      }
+    ]
+  }
+}

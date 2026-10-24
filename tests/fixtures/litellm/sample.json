@@ -1,0 +1,25 @@
+{
+  "request_id": "task-1",
+  "model": "gpt-4o-mini",
+  "prompt_tokens": 150,
+  "completion_tokens": 20,
+  "startTime": "2025-01-01T00:00:00Z",
+  "endTime": "2025-01-01T00:00:01Z",
+  "spend": 3.45e-05,
+  "metadata": {
+    "task_type": "code"
+  },
+  "messages": "__CONTENT_PLACEHOLDER__",
+  "response": {
+    "content": "__CONTENT_PLACEHOLDER__",
+    "tool_calls": [
+      {
+        "type": "function",
+        "function": {
+          "name": "shell",
+          "arguments": "{\"command\": \"__CONTENT_PLACEHOLDER__\"}"
+        }
+      }
+    ]
+  }
+}

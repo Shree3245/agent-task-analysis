@@ -1,0 +1,8 @@
+rules:
+  - type: code
+    tool_pattern: "shell|bash|edit|patch|file"
+  - type: research
+    tool_pattern: "search|browse|fetch"
+  - type: long_reasoning
+    min_calls: 5
+    min_output_input_ratio: 0.5

@@ -1,0 +1,10 @@
+tasks:
+  "otel:trace-001": code_review
+types:
+  research: research_brief
+rules:
+  - type: code
+    tool_pattern: "shell|bash|edit|patch"
+  - type: research
+    tool_pattern: "search|browse"
+    min_calls: 2

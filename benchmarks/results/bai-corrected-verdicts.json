@@ -1,0 +1,85 @@
+{
+  "pricing_basis": "provider-correct exclusive token classes; unchanged default",
+  "tasks": 2000,
+  "known_spend": 1474.9991188500003,
+  "reconciliation": {
+    "model_calls": 88439,
+    "recorded_calls": 88439,
+    "comparable_calls": 88439,
+    "within_one_percent": 83,
+    "agreement": 0.0009384999830391569,
+    "comparable_agreement": 0.0009384999830391569,
+    "acceptance": "FAIL",
+    "unknown_models": {},
+    "totals": {
+      "recorded": 1728.20700584998,
+      "repriced_comparable": 1474.999118850014,
+      "recorded_comparable": 1728.20700584998
+    },
+    "extra_cache_write_input_charge_diagnostic": {
+      "calls": 88380,
+      "matches": 88380
+    }
+  },
+  "verdicts": [
+    {
+      "type": "code",
+      "verdict": {
+        "label": "VIABLE",
+        "reason": "Holdout upper loss-ratio interval stays below 90% at the 70% target with p99 cap",
+        "censoring_disagreement": false
+      },
+      "holdout_70pct_p99_cap": [
+        {
+          "scope": "holdout",
+          "censoring": "exclude",
+          "capped": true,
+          "cap": 2.340617684999999,
+          "tail_increment": 2.1108961019999994,
+          "target": 0.7,
+          "price": 1.0270812904955084,
+          "loss_ratio": 0.6861827460554142,
+          "ci": [
+            0.6643775904973515,
+            0.7091513658189758
+          ],
+          "tasks_lost": 0.1752786220871327,
+          "worst_loss": 1.3778192095044912,
+          "n_train": 986,
+          "n_test": 987,
+          "train_uncapped": 986,
+          "test_uncapped": 987,
+          "stopped": 0.008105369807497468
+        },
+        {
+          "scope": "holdout",
+          "censoring": "inflate",
+          "capped": true,
+          "cap": 2.340617684999999,
+          "tail_increment": 2.1108961019999994,
+          "target": 0.7,
+          "price": 1.0817241183085715,
+          "loss_ratio": 0.6892723755534405,
+          "ci": [
+            0.6624049662453775,
+            0.7166251021747765
+          ],
+          "tasks_lost": 0.171,
+          "worst_loss": 3.347150783691429,
+          "n_train": 1000,
+          "n_test": 1000,
+          "train_uncapped": 986,
+          "test_uncapped": 987,
+          "stopped": 0.011
+        }
+      ]
+    }
+  ],
+  "source_eq12_diagnostic": {
+    "recorded_calls": 88439,
+    "within_one_percent": 88439,
+    "agreement": 1.0,
+    "total": 1728.20700584998,
+    "scope": "Sonnet 3.7 only; reconstructed from canonical counts, not independent native-token identity evidence"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "analysis_version": 3,
+  "model_archive": "claude-sonnet-4_4runs",
+  "tasks": 1999,
+  "model_calls": 139138,
+  "outcomes": {
+    "tasks": 1999,
+    "known_outcomes": 1994,
+    "successes": 1373,
+    "success_rate": 0.6885656970912738,
+    "priced_tasks": 0,
+    "priced_successes": 0,
+    "cost_per_success": null,
+    "iteration_limited": 0,
+    "iteration_limit_share": 0.0
+  },
+  "shape": {
+    "n": 0
+  },
+  "n_unpriced": 1999,
+  "n_capped": 0,
+  "known_spend": 0.4463073000000001,
+  "in_sample_price_70_with_p99_cap": null,
+  "grouped_cv_70_with_p99_cap": {},
+  "validation": {
+    "sources": "openhands",
+    "grouped_tasks": 1999,
+    "groups": 500,
+    "repeated_groups": 500,
+    "max_per_group": 4,
+    "split": "grouped_cv",
+    "why": "500 of 500 task groups repeat (up to 4 tasks each), so a time split would score tasks it was fit on"
+  },
+  "grouped_cv_70_unpriced_at_p99": {},
+  "success_viable": null,
+  "fixed_price_70_uncapped": null,
+  "verdict": {
+    "label": "NOT VIABLE",
+    "reason": "1999 tasks (100.0%) have unknown costs; the limit is under 2%; exclude: no usable grouped_cv or positive fitted price",
+    "censoring_disagreement": false,
+    "unpriced": 1999,
+    "unpriced_share": 1.0,
+    "unpriced_excluded": "NOT VIABLE",
+    "unpriced_at_p99": null
+  },
+  "simulations": [],
+  "success_billing": [],
+  "source_formula_verification": null,
+  "reconciliation": {
+    "model_calls": 139138,
+    "missing_usage": 139097,
+    "recorded_calls": 139138,
+    "comparable_calls": 41,
+    "within_one_percent": 41,
+    "agreement": 0.00029467147723842514,
+    "comparable_agreement": 1.0,
+    "acceptance": "FAIL",
+    "unknown_models": {},
+    "mismatches": [],
+    "totals": {
+      "recorded": 2566.4128507500163,
+      "repriced_comparable": 0.4463073000000001,
+      "recorded_comparable": 0.4463073000000001
+    },
+    "extra_cache_write_input_charge_diagnostic": {}
+  },
+  "price_catalog": {
+    "version": "2026-10-23.1-bai-routes.1",
+    "sha256": "50395bc63c7d0dcd458b5e074bbc5b2883fbe4985bba4ee58f1fec65493f9069",
+    "description": "Public standard API list rates. Not negotiated, regional, batch, or tool-service pricing. Cache writes assume 5-minute Anthropic TTL. Historical invoices may differ. Bai analysis adds exact observed provider/proxy route aliases; dollar rates are unchanged. Qwen hosted and Kimi OpenRouter tariffs remain unknown."
+  },
+  "resolution_reports": 4,
+  "resolution_conflicts": 0,
+  "harness_iteration_limits": {
+    "500": 1999
+  }
+}

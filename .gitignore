@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.pyc
+.moira/
+dist/
+*.duckdb*
+*.manifest.json
+demo-report.*
+benchmarks/raw/
+benchmarks/decrypted/
+.DS_Store

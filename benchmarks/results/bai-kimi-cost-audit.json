@@ -1,0 +1,266 @@
+{
+  "paper": "https://arxiv.org/html/2604.22750v3#A2",
+  "source_code_revision": "335ecf2a29607bbfe8b13708f10b7b9091bcba45",
+  "dataset_revision": "fa9cbb063f770df596da95af24f7af3b8f595778",
+  "catalog_sha256": "74182d05619a62951c47e44eb2c2222f86f1bf516325820588970e093abe012b",
+  "content_retained": false,
+  "identity_limit": "Native input_tokens must be present independently; a reconstructed residual is not proof.",
+  "results": [
+    {
+      "archive": "kimi-k2_4runs.tar.gz",
+      "scope": "all final output.jsonl per-call summaries; critic attempts excluded",
+      "counts": {
+        "records": 152054,
+        "recorded_calls": 152054,
+        "zero_recorded_cost": 15,
+        "native_identity_testable": 0,
+        "native_identity_pass": 0,
+        "negative_input_residual": 0,
+        "provider_comparable": 0,
+        "provider_within_1pct": 0,
+        "source_eq12_comparable": 0,
+        "source_eq12_within_1pct": 0,
+        "unknown_model": 152054
+      },
+      "models": {
+        "moonshotai/kimi-k2-0905": 152054
+      },
+      "provider_agreement_all_recorded": 0.0,
+      "source_eq12_agreement_all_recorded": null,
+      "examples": [
+        {
+          "record_hash": "2196ca179e77df697a7e3843ddfb602ac3aa1b3269e5dcd412a408243730c31f",
+          "model": "moonshotai/kimi-k2-0905",
+          "usage": {
+            "prompt_tokens": 8700,
+            "completion_tokens": 365,
+            "cache_read_tokens": 0,
+            "cache_write_tokens": 0,
+            "prompt_tokens_details": {},
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.00622435,
+          "provider_cost": null,
+          "provider_reason": "unknown_model",
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 8700,
+          "provider_match": null,
+          "source_eq12_match": null
+        },
+        {
+          "record_hash": "a86ffa7e865c6c31be86df96d0ea2025c3e6135bb7938df79717858eecaa9540",
+          "model": "moonshotai/kimi-k2-0905",
+          "usage": {
+            "prompt_tokens": 9087,
+            "completion_tokens": 37,
+            "cache_read_tokens": 0,
+            "cache_write_tokens": 0,
+            "prompt_tokens_details": {},
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.00547196,
+          "provider_cost": null,
+          "provider_reason": "unknown_model",
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 9087,
+          "provider_match": null,
+          "source_eq12_match": null
+        },
+        {
+          "record_hash": "9e33fec626624d4f1c8cae4c78808172ce1155889ae8dba137c51b395d58662b",
+          "model": "moonshotai/kimi-k2-0905",
+          "usage": {
+            "prompt_tokens": 9526,
+            "completion_tokens": 48,
+            "cache_read_tokens": 0,
+            "cache_write_tokens": 0,
+            "prompt_tokens_details": {},
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.00967,
+          "provider_cost": null,
+          "provider_reason": "unknown_model",
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 9526,
+          "provider_match": null,
+          "source_eq12_match": null
+        },
+        {
+          "record_hash": "8908330358a2c93dd7d6a68b087986f3523f75752ec98e12c65d7c1f074f2840",
+          "model": "moonshotai/kimi-k2-0905",
+          "usage": {
+            "prompt_tokens": 13146,
+            "completion_tokens": 77,
+            "cache_read_tokens": 0,
+            "cache_write_tokens": 0,
+            "prompt_tokens_details": {},
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.0080801,
+          "provider_cost": null,
+          "provider_reason": "unknown_model",
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 13146,
+          "provider_match": null,
+          "source_eq12_match": null
+        },
+        {
+          "record_hash": "28e196a03bef1c0cb9b767f3c7e52ed10112a596af1d4d402d00ee72f0667415",
+          "model": "moonshotai/kimi-k2-0905",
+          "usage": {
+            "prompt_tokens": 13959,
+            "completion_tokens": 58,
+            "cache_read_tokens": 7454,
+            "cache_write_tokens": 0,
+            "prompt_tokens_details": {},
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.0085204,
+          "provider_cost": null,
+          "provider_reason": "unknown_model",
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 6505,
+          "provider_match": null,
+          "source_eq12_match": null
+        }
+      ],
+      "raw_response_examples": [
+        {
+          "model": "moonshotai/kimi-k2-0905",
+          "usage": {
+            "prompt_tokens": 17036,
+            "completion_tokens": 57,
+            "prompt_tokens_details": {
+              "cached_tokens": 14592
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0
+            }
+          },
+          "recorded_cost": 0.0037977,
+          "provider_cost": null,
+          "provider_reason": "unknown_model",
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 2444,
+          "provider_match": null,
+          "source_eq12_match": null,
+          "recorded_components": {
+            "upstream_inference_prompt_cost": 0.0036552,
+            "upstream_inference_completions_cost": 0.0001425
+          },
+          "record_hash": "8515cadb42d144acad4d9ec81bb45df93dfc2bc1bc6afbcc235e795482fd016f"
+        },
+        {
+          "model": "moonshotai/kimi-k2-0905",
+          "usage": {
+            "prompt_tokens": 112951,
+            "completion_tokens": 67,
+            "prompt_tokens_details": {
+              "cached_tokens": 107008
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0
+            }
+          },
+          "recorded_cost": 0.0679381,
+          "provider_cost": null,
+          "provider_reason": "unknown_model",
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 5943,
+          "provider_match": null,
+          "source_eq12_match": null,
+          "recorded_components": {
+            "upstream_inference_prompt_cost": 0.0677706,
+            "upstream_inference_completions_cost": 0.0001675
+          },
+          "record_hash": "d04267ea3f74a924c45d2ddff80be21a76a3f137fe4b57e482c2e82800733d79"
+        },
+        {
+          "model": "moonshotai/kimi-k2-0905",
+          "usage": {
+            "prompt_tokens": 74842,
+            "completion_tokens": 646,
+            "prompt_tokens_details": {
+              "cached_tokens": 73984
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0
+            }
+          },
+          "recorded_cost": 0.039788,
+          "provider_cost": null,
+          "provider_reason": "unknown_model",
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 858,
+          "provider_match": null,
+          "source_eq12_match": null,
+          "recorded_components": {
+            "upstream_inference_prompt_cost": 0.03785,
+            "upstream_inference_completions_cost": 0.001938
+          },
+          "record_hash": "c243c6f3f7765a15819c9f0891fdc2399f0a54fe5b342704584c7a28e99d7118"
+        },
+        {
+          "model": "moonshotai/kimi-k2-0905",
+          "usage": {
+            "prompt_tokens": 38100,
+            "completion_tokens": 92,
+            "prompt_tokens_details": {
+              "cached_tokens": 37632
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0
+            }
+          },
+          "recorded_cost": 0.01956,
+          "provider_cost": null,
+          "provider_reason": "unknown_model",
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 468,
+          "provider_match": null,
+          "source_eq12_match": null,
+          "recorded_components": {
+            "upstream_inference_prompt_cost": 0.019284,
+            "upstream_inference_completions_cost": 0.000276
+          },
+          "record_hash": "736ff90eb6f9f02db21a2fb35495fed6c11a0407030bc8849ee79f84f78291de"
+        },
+        {
+          "model": "moonshotai/kimi-k2-0905",
+          "usage": {
+            "prompt_tokens": 32194,
+            "completion_tokens": 67,
+            "prompt_tokens_details": {
+              "cached_tokens": 31744
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0
+            }
+          },
+          "recorded_cost": 0.0051991,
+          "provider_cost": null,
+          "provider_reason": "unknown_model",
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 450,
+          "provider_match": null,
+          "source_eq12_match": null,
+          "recorded_components": {
+            "upstream_inference_prompt_cost": 0.0050316,
+            "upstream_inference_completions_cost": 0.0001675
+          },
+          "record_hash": "31c1fc651e788df2214bd5a4d9f0ee187061eec3c46eb2439aef878ffc6a35bf"
+        }
+      ]
+    }
+  ]
+}

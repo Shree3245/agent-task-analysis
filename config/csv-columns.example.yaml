@@ -1,0 +1,19 @@
+token_semantics: exclusive
+columns:
+  task_id: task_id
+  task_type: task_type
+  model: model
+  provider: provider
+  ts_start: started_at
+  ts_end: ended_at
+  input_tokens: input_tokens
+  cached_input_tokens: cached_tokens
+  cache_write_input_tokens: cache_write_tokens
+  output_tokens: output_tokens
+  reasoning_tokens: reasoning_tokens
+  recorded_cost: cost_usd
+  tool_name: tool
+  tool_args: args_json
+  outcome: outcome
+  capped: capped
+  cap_reason: cap_reason

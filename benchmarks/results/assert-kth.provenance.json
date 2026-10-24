@@ -1,0 +1,32 @@
+{
+  "tasks": 1000,
+  "types": 1,
+  "repricing": "UNAVAILABLE",
+  "repricing_agreement": null,
+  "scope": "ASSERT-KTH subset: 2 evaluation files across the selected scaffolds. Nano-agent lacks per-call token classes; R2E-Gym has step tokens. Absolute timestamps and hosted-vLLM dollar rates are unavailable. No costs are fabricated.",
+  "benchmark_not_production": true,
+  "download": {
+    "source": "assert-kth",
+    "repo": "ASSERT-KTH/agentic-evals-artifacts",
+    "revision": "5db0c4b69382d160a313d7ceaded915398c63e13",
+    "project": "https://github.com/ASSERT-KTH/agentic-evals-lab",
+    "license": "cc-by-4.0",
+    "include": "*detailed_predictions.jsonl",
+    "selected_files": 2,
+    "available_files": 364,
+    "selection": "One nano-agent Qwen3-32B temp0 run and one R2E-Gym Qwen3-32B temp0.6 run",
+    "max_files": 2,
+    "files": [
+      {
+        "path": "nano-agent-Qwen_Qwen3-32B-temp0/run_0/detailed_predictions.jsonl",
+        "bytes": 53913587,
+        "sha256": "b427b6f40c253be7df9293bae3f720dfa92031c5451220a03a6ecaa45fcb4ed9"
+      },
+      {
+        "path": "r2e-gym-Qwen_Qwen3-32B/traj_qwen32b_run_0/qwen3_32b_agent_swebv_eval_temp_0.6_run_0.jsonl",
+        "bytes": 763315666,
+        "sha256": "9af1838aa0a46c37a5450b7217ce02ab3d77b2cf2481212923fd89db9bb610aa"
+      }
+    ]
+  }
+}

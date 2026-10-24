@@ -1,0 +1,217 @@
+{
+  "tasks": 1781,
+  "types": 6,
+  "repricing": "UNAVAILABLE",
+  "repricing_agreement": null,
+  "scope": "Exgentic v1: 39 of 39 published parquet shards. Missing cache breakdowns may overstate list-rate cost. Cloud-model rates without explicit catalog entries remain unknown.",
+  "benchmark_not_production": true,
+  "download": {
+    "source": "exgentic",
+    "repo": "Exgentic/agent-llm-traces",
+    "revision": "70036b93a04e61b0ea2706a68b962f4f26774587",
+    "project": "https://huggingface.co/datasets/Exgentic/agent-llm-traces",
+    "license": "cdla-permissive-2.0",
+    "include": "*.parquet",
+    "selected_files": 39,
+    "available_files": 41,
+    "selection": "*.parquet",
+    "max_files": null,
+    "files": [
+      {
+        "path": "data/train-00000-of-00039.parquet",
+        "bytes": 24144062,
+        "sha256": "5cfde1c01460d2f7d90fdc6c245278cee20f32101d5275b6cf3d06f30a5f8f60"
+      },
+      {
+        "path": "data/train-00001-of-00039.parquet",
+        "bytes": 20761819,
+        "sha256": "c4ca7303a82543f8fa3e0619ba956b3393d24e2c2c0866e9038ee3f456850a26"
+      },
+      {
+        "path": "data/train-00002-of-00039.parquet",
+        "bytes": 15317963,
+        "sha256": "7e9dba30a63f9538b98be0f06bdd2bf754644f8ac80c782743e0ff96398a55e9"
+      },
+      {
+        "path": "data/train-00003-of-00039.parquet",
+        "bytes": 2620639,
+        "sha256": "e631d7cd79b8ec06dc1f4dbe622ea545d4a6157bd4da012e4f4f52be65dff9f1"
+      },
+      {
+        "path": "data/train-00004-of-00039.parquet",
+        "bytes": 4252315,
+        "sha256": "9275682f710f5321e05ecb314f1b1b520be637f60b525df9fe313ec82a246d36"
+      },
+      {
+        "path": "data/train-00005-of-00039.parquet",
+        "bytes": 8975075,
+        "sha256": "8dc72b19f12de81e1447c7ef6748511a099d5b8e78aa34b77dc44ec061559070"
+      },
+      {
+        "path": "data/train-00006-of-00039.parquet",
+        "bytes": 17528236,
+        "sha256": "66de98b7f1193d4ee231193d95084374771d5cd3738e3307fc987c1acc9db1f8"
+      },
+      {
+        "path": "data/train-00007-of-00039.parquet",
+        "bytes": 15991031,
+        "sha256": "528458adc8b4ee772d4b8e8b6bcc99daad3cb82d55a64d19d038a9d3acaef7ac"
+      },
+      {
+        "path": "data/train-00008-of-00039.parquet",
+        "bytes": 40355325,
+        "sha256": "b79a0f50a3b3257477cf4d4aa1aa3779ae7e57caef07781d874c206b98dfb57b"
+      },
+      {
+        "path": "data/train-00009-of-00039.parquet",
+        "bytes": 136468470,
+        "sha256": "596b5f27fb93b001f4417d494649f83e920eee317a696fcd953d0c9783d30ace"
+      },
+      {
+        "path": "data/train-00010-of-00039.parquet",
+        "bytes": 136589137,
+        "sha256": "9bad5701e6c779d897103561d4010d8e4470736f5d9a6d457e5f6eb86af9615e"
+      },
+      {
+        "path": "data/train-00011-of-00039.parquet",
+        "bytes": 137160236,
+        "sha256": "73ae87c39fcbb524dfa32a7d9f8cc9c764988e5c287cea14b5c572b4c2e432fa"
+      },
+      {
+        "path": "data/train-00012-of-00039.parquet",
+        "bytes": 41029485,
+        "sha256": "b21531f9446828298e26e07d5718e49290a6ecf80ba14b1fc6cb0601f62cca7c"
+      },
+      {
+        "path": "data/train-00013-of-00039.parquet",
+        "bytes": 14873293,
+        "sha256": "28c650bd2e1d47e6cd08fb3c1a7217a0d8108749f9c5118e2cb6128c2e5a0784"
+      },
+      {
+        "path": "data/train-00014-of-00039.parquet",
+        "bytes": 15379903,
+        "sha256": "6706aaf28c4d9c05ae76b56c6248bc8bababf0eb39ed9f269951b08f33df1a58"
+      },
+      {
+        "path": "data/train-00015-of-00039.parquet",
+        "bytes": 18161418,
+        "sha256": "1df44eff900bed6b6d93f20c05fb719c1ac27549a3c476bac6dc391f374b1495"
+      },
+      {
+        "path": "data/train-00016-of-00039.parquet",
+        "bytes": 16154567,
+        "sha256": "187d07b778fe2540afe683ea5ffb5276edd503370b7c2070c459041070edf93e"
+      },
+      {
+        "path": "data/train-00017-of-00039.parquet",
+        "bytes": 75624930,
+        "sha256": "69026ba698751c5b418b51767d86fb88acb89adb8a0ae6ed829d8dd25fb417f6"
+      },
+      {
+        "path": "data/train-00018-of-00039.parquet",
+        "bytes": 94218331,
+        "sha256": "581777c0a1d6da68a35941bfa868604a460c1ec91fe30378ac11609cfd6f405b"
+      },
+      {
+        "path": "data/train-00019-of-00039.parquet",
+        "bytes": 92017332,
+        "sha256": "1273811490529293ff9e825efb4232b451e32511c46934826a7a9d830f6d60bf"
+      },
+      {
+        "path": "data/train-00020-of-00039.parquet",
+        "bytes": 8380103,
+        "sha256": "4208d674e2de5edc8513877e54613a6109c97f1b99ed7be6d397513e038941b1"
+      },
+      {
+        "path": "data/train-00021-of-00039.parquet",
+        "bytes": 12605995,
+        "sha256": "2ee63b04c6bc9343d270f4f6de075f262cc0aa33727802137fdccbab72fae017"
+      },
+      {
+        "path": "data/train-00022-of-00039.parquet",
+        "bytes": 265853,
+        "sha256": "38bd8d57ceb882de7d2afb7354fec558687dbc67621c2293e92a3f9ce4d3351a"
+      },
+      {
+        "path": "data/train-00023-of-00039.parquet",
+        "bytes": 374962,
+        "sha256": "2f5f9ed450e6ea618ab2ea31d9904f067e177278f333be50f1ec4f585c3de61a"
+      },
+      {
+        "path": "data/train-00024-of-00039.parquet",
+        "bytes": 322786,
+        "sha256": "f6ca483def33a83fc5855115c6bba4ce5a06eae8eac6f683659e8a32c0656bff"
+      },
+      {
+        "path": "data/train-00025-of-00039.parquet",
+        "bytes": 1280514,
+        "sha256": "a1b57eca96d0619af1d83d6f2c913e03a72073e4a60d0ea2945f8095f336cc73"
+      },
+      {
+        "path": "data/train-00026-of-00039.parquet",
+        "bytes": 2017273,
+        "sha256": "abc54ae92c80e66d63ef0e537a200933de345b8328ba16f71ceb0b9b5275388b"
+      },
+      {
+        "path": "data/train-00027-of-00039.parquet",
+        "bytes": 2106740,
+        "sha256": "4787b7e33aad9a0c0aed75aa7e7029bce2f15e50c30b02f083ff3eaf7d1d5d6a"
+      },
+      {
+        "path": "data/train-00028-of-00039.parquet",
+        "bytes": 10853048,
+        "sha256": "17b2161b4eab8235cc6ac733f09f182ceae47de7d88f8881b42f46601d12025b"
+      },
+      {
+        "path": "data/train-00029-of-00039.parquet",
+        "bytes": 323877,
+        "sha256": "36258df7a80e4b48c2002dc77f359835ae32b4850929373723aab3c648c45df9"
+      },
+      {
+        "path": "data/train-00030-of-00039.parquet",
+        "bytes": 273483,
+        "sha256": "749338d2e71979f07877bcb180724c764833aa4e4edf4ca5f30dcbd40cb5f6ee"
+      },
+      {
+        "path": "data/train-00031-of-00039.parquet",
+        "bytes": 296951,
+        "sha256": "b2c35c41c3fb1f75c3ce12a80b6d1f9407d5450eea2300c4da4165df6aa1a07d"
+      },
+      {
+        "path": "data/train-00032-of-00039.parquet",
+        "bytes": 438079,
+        "sha256": "6c7cfdc7edbc67b7c0010e01e81bb1898f54586235fb16e33f4c7d23fa599908"
+      },
+      {
+        "path": "data/train-00033-of-00039.parquet",
+        "bytes": 454211,
+        "sha256": "1842d80742e816a92c2c87472f77f942481a342a2d0e45c0e01e35ac0808aed3"
+      },
+      {
+        "path": "data/train-00034-of-00039.parquet",
+        "bytes": 668615,
+        "sha256": "c46231c5060f238865e461caba8cc0f188c4e8571bbc60b4f4e479029e103b9d"
+      },
+      {
+        "path": "data/train-00035-of-00039.parquet",
+        "bytes": 5637536,
+        "sha256": "bcf6f5bb11508049b1822f484179c4fbdad5c91cd2789a20e8888bd8c4869040"
+      },
+      {
+        "path": "data/train-00036-of-00039.parquet",
+        "bytes": 5482968,
+        "sha256": "168901217a7f6c241a3cbd3d4c2be11e229ef2a04ec06b22cf8b9a2b540c4a31"
+      },
+      {
+        "path": "data/train-00037-of-00039.parquet",
+        "bytes": 1643641,
+        "sha256": "f9372103af81b3e86efb5afa68d82de2fcd036bf136debe5b856feaa84112b6d"
+      },
+      {
+        "path": "data/train-00038-of-00039.parquet",
+        "bytes": 2542646,
+        "sha256": "1f6d582adfd96eff8adac9446746546c05af176e20f2a451559b31dfad007f38"
+      }
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "tasks": 2000,
+  "types": 1,
+  "repricing": "FAIL",
+  "repricing_agreement": 0.0009384999830391569,
+  "scope": "Selected full Bai archives: 1. The repository contains additional model archives.",
+  "benchmark_not_production": true,
+  "download": {
+    "source": "openhands-bai",
+    "repo": "loong0814/openhands_trajectories",
+    "revision": "fa9cbb063f770df596da95af24f7af3b8f595778",
+    "project": "https://longjubai.github.io/agent_token_consumption/",
+    "license": "not_specified",
+    "include": "*_mini.tar.gz",
+    "selected_files": 1,
+    "available_files": 15,
+    "selection": "claude-sonnet-3.7_4runs.tar.gz",
+    "max_files": null,
+    "files": [
+      {
+        "path": "claude-sonnet-3.7_4runs.tar.gz",
+        "bytes": 3397174017,
+        "sha256": "416715b30a4b216b5ba2e5bf5435a1d62371bd8a109b000b130b9136ab2fe37f"
+      }
+    ]
+  }
+}

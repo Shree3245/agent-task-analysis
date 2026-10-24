@@ -1,0 +1,28 @@
+{
+  "task_id": "task-1",
+  "task_type": "code",
+  "started_at": "2025-01-01T00:00:00Z",
+  "ended_at": "2025-01-01T00:00:01Z",
+  "inputs": {
+    "model": "gpt-4o-mini",
+    "messages": "__CONTENT_PLACEHOLDER__"
+  },
+  "output": {
+    "model": "gpt-4o-mini",
+    "usage": {
+      "input_tokens": 150,
+      "output_tokens": 20
+    },
+    "content": "__CONTENT_PLACEHOLDER__",
+    "tool_calls": [
+      {
+        "type": "function",
+        "function": {
+          "name": "shell",
+          "arguments": "{\"command\": \"__CONTENT_PLACEHOLDER__\"}"
+        }
+      }
+    ]
+  },
+  "cost": 3.45e-05
+}

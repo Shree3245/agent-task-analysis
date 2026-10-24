@@ -1,0 +1,38 @@
+{
+  "id": "task-1",
+  "run_type": "chain",
+  "extra": {
+    "metadata": {
+      "task_type": "code"
+    }
+  },
+  "inputs": "__CONTENT_PLACEHOLDER__",
+  "outputs": "__CONTENT_PLACEHOLDER__",
+  "child_runs": [
+    {
+      "id": "call-1",
+      "run_type": "llm",
+      "name": "gpt-4o-mini",
+      "usage_metadata": {
+        "input_tokens": 150,
+        "output_tokens": 20
+      },
+      "start_time": "2025-01-01T00:00:00Z",
+      "end_time": "2025-01-01T00:00:01Z",
+      "total_cost": 3.45e-05,
+      "outputs": {
+        "content": "__CONTENT_PLACEHOLDER__",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "shell",
+              "arguments": "{\"command\": \"__CONTENT_PLACEHOLDER__\"}"
+            }
+          }
+        ]
+      },
+      "inputs": "__CONTENT_PLACEHOLDER__"
+    }
+  ]
+}

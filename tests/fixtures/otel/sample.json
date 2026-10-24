@@ -1,0 +1,67 @@
+{
+  "resourceSpans": [
+    {
+      "scopeSpans": [
+        {
+          "spans": [
+            {
+              "traceId": "task-1",
+              "startTimeUnixNano": "1735689600000000000",
+              "endTimeUnixNano": "1735689601000000000",
+              "attributes": [
+                {
+                  "key": "task.type",
+                  "value": {
+                    "stringValue": "code"
+                  }
+                },
+                {
+                  "key": "task.outcome",
+                  "value": {
+                    "stringValue": "success"
+                  }
+                },
+                {
+                  "key": "gen_ai.operation.name",
+                  "value": {
+                    "stringValue": "chat"
+                  }
+                },
+                {
+                  "key": "gen_ai.request.model",
+                  "value": {
+                    "stringValue": "gpt-4o-mini"
+                  }
+                },
+                {
+                  "key": "gen_ai.usage.input_tokens",
+                  "value": {
+                    "intValue": "150"
+                  }
+                },
+                {
+                  "key": "gen_ai.usage.output_tokens",
+                  "value": {
+                    "intValue": "20"
+                  }
+                },
+                {
+                  "key": "gen_ai.input.messages",
+                  "value": {
+                    "stringValue": "__CONTENT_PLACEHOLDER__"
+                  }
+                },
+                {
+                  "key": "gen_ai.output.messages",
+                  "value": {
+                    "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"text\", \"content\": \"__CONTENT_PLACEHOLDER__\"}, {\"type\": \"tool_call\", \"name\": \"shell\", \"arguments\": {\"cmd\": \"__CONTENT_PLACEHOLDER__\"}}]}]"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

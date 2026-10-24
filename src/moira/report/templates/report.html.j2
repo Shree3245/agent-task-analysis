@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:; font-src 'none'; base-uri 'none'; form-action 'none'">
+<title>moira · local cost report</title>
+<style>
+:root{color-scheme:light;--ink:#162e3e;--muted:#536775;--line:#dbe5e8;--accent:#087f8c}
+*{box-sizing:border-box}body{margin:0;background:#f3f6f5;color:var(--ink);font:15px/1.65 system-ui,-apple-system,sans-serif}
+main{max-width:1240px;margin:auto;padding:42px 28px 80px}section{background:white;padding:30px 34px;margin-bottom:24px;border:1px solid var(--line);border-radius:12px}
+section:first-child{border-top:6px solid var(--accent)}h1{font-size:32px;line-height:1.2;letter-spacing:-1px}h2{font-size:25px;letter-spacing:-.5px}h3{font-size:16px;margin-top:28px;overflow-wrap:anywhere}
+p{max-width:100ch;color:var(--muted);overflow-wrap:anywhere}table{border-collapse:collapse;width:100%;min-width:720px;font-size:13px;line-height:1.5}th{text-align:left;background:#eef5f4;color:#34515c}th,td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}td{overflow-wrap:anywhere;max-width:420px}td:first-child{min-width:160px}tr:nth-child(even){background:#fbfcfc}.table{overflow-x:auto}svg{width:100%;height:auto;border:1px solid var(--line);border-radius:6px}.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:18px;margin-top:24px}.empty{font-style:italic}
+@media(max-width:650px){main{padding:16px 8px}section{padding:18px 16px}h1{font-size:26px}}
+@media print{body{background:white}main{padding:0}section{border:0;padding:8px;break-inside:auto}tr,svg{break-inside:avoid}h2,h3{break-after:avoid}}
+</style></head><body><main>
+{% for section in sections %}<section>
+{% if loop.first %}<h1>{{ section.title }}</h1>{% else %}<h2>{{ section.title }}</h2>{% endif %}
+{% for p in section.paragraphs %}<p>{{ p }}</p>{% endfor %}
+{% for table in section.tables %}<h3>{{ table.title }}</h3><div class="table"><table><thead><tr>{% for h in table.headers %}<th>{{ h }}</th>{% endfor %}</tr></thead><tbody>
+{% for row in table.rows %}<tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>{% endfor %}
+</tbody></table></div>{% if not table.rows %}<p class="empty">No available observations for this table.</p>{% endif %}{% endfor %}
+{% if section.charts %}<div class="charts">{% for chart in section.charts %}{{ chart|safe }}{% endfor %}</div>{% endif %}
+</section>{% endfor %}
+</main></body></html>

@@ -1,0 +1,677 @@
+{
+  "paper": "https://arxiv.org/html/2604.22750v3#A2",
+  "source_code_revision": "335ecf2a29607bbfe8b13708f10b7b9091bcba45",
+  "dataset_revision": "fa9cbb063f770df596da95af24f7af3b8f595778",
+  "catalog_sha256": "74182d05619a62951c47e44eb2c2222f86f1bf516325820588970e093abe012b",
+  "content_retained": false,
+  "identity_limit": "Native input_tokens must be present independently; a reconstructed residual is not proof.",
+  "results": [
+    {
+      "archive": "claude-sonnet-3.7_4runs_mini.tar.gz",
+      "scope": "final completion samples only",
+      "counts": {
+        "records": 2000,
+        "recorded_calls": 2000,
+        "zero_recorded_cost": 0,
+        "native_identity_testable": 0,
+        "native_identity_pass": 0,
+        "negative_input_residual": 0,
+        "provider_comparable": 2000,
+        "provider_within_1pct": 3,
+        "source_eq12_comparable": 2000,
+        "source_eq12_within_1pct": 2000
+      },
+      "models": {
+        "litellm_proxy/claude-3-7-sonnet-20250219": 2000
+      },
+      "provider_agreement_all_recorded": 0.0015,
+      "source_eq12_agreement_all_recorded": 1.0,
+      "examples": [
+        {
+          "record_hash": "03a06f418f8684ad1ff81da25578798dafb0d989f559609c796f52058ee410f0",
+          "model": "claude-3-7-sonnet-20250219",
+          "usage": {
+            "prompt_tokens": 73916,
+            "completion_tokens": 822,
+            "cache_creation_input_tokens": 725,
+            "cache_read_input_tokens": 73191,
+            "prompt_tokens_details": {
+              "cached_tokens": 73191
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.039181049999999995,
+          "provider_cost": 0.037006050000000006,
+          "provider_reason": null,
+          "source_eq12_cost": 0.03918105,
+          "native_identity": null,
+          "inferred_input_residual": 0,
+          "provider_match": false,
+          "source_eq12_match": true
+        },
+        {
+          "record_hash": "da56d2a5d45628aa9d5b23b008b680a4bec2196cf4a7722995130f482d328718",
+          "model": "claude-3-7-sonnet-20250219",
+          "usage": {
+            "prompt_tokens": 89395,
+            "completion_tokens": 768,
+            "cache_creation_input_tokens": 655,
+            "cache_read_input_tokens": 88740,
+            "prompt_tokens_details": {
+              "cached_tokens": 88740
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.042563250000000004,
+          "provider_cost": 0.04059825,
+          "provider_reason": null,
+          "source_eq12_cost": 0.04256325,
+          "native_identity": null,
+          "inferred_input_residual": 0,
+          "provider_match": false,
+          "source_eq12_match": true
+        },
+        {
+          "record_hash": "5ce7f1fba8942c84cc21d55563513d5df0bdf58651bd6ce58d7b16ba25afb439",
+          "model": "claude-3-7-sonnet-20250219",
+          "usage": {
+            "prompt_tokens": 62365,
+            "completion_tokens": 643,
+            "cache_creation_input_tokens": 238,
+            "cache_read_input_tokens": 62127,
+            "prompt_tokens_details": {
+              "cached_tokens": 62127
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.0298896,
+          "provider_cost": 0.0291756,
+          "provider_reason": null,
+          "source_eq12_cost": 0.0298896,
+          "native_identity": null,
+          "inferred_input_residual": 0,
+          "provider_match": false,
+          "source_eq12_match": true
+        },
+        {
+          "record_hash": "eef3d3cebdf3bb3e99e5117391c8224c3787da3272e05fb651be7bbb19f4b900",
+          "model": "claude-3-7-sonnet-20250219",
+          "usage": {
+            "prompt_tokens": 40691,
+            "completion_tokens": 581,
+            "cache_creation_input_tokens": 356,
+            "cache_read_input_tokens": 40335,
+            "prompt_tokens_details": {
+              "cached_tokens": 40335
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.0232185,
+          "provider_cost": 0.0221505,
+          "provider_reason": null,
+          "source_eq12_cost": 0.0232185,
+          "native_identity": null,
+          "inferred_input_residual": 0,
+          "provider_match": false,
+          "source_eq12_match": true
+        },
+        {
+          "record_hash": "95ad8632f11ac013621626db0e975a96c589d2f8f446dfd2d448e6ae5fafb8f7",
+          "model": "claude-3-7-sonnet-20250219",
+          "usage": {
+            "prompt_tokens": 31463,
+            "completion_tokens": 699,
+            "cache_creation_input_tokens": 446,
+            "cache_read_input_tokens": 31017,
+            "prompt_tokens_details": {
+              "cached_tokens": 31017
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.0228006,
+          "provider_cost": 0.0214626,
+          "provider_reason": null,
+          "source_eq12_cost": 0.022800599999999997,
+          "native_identity": null,
+          "inferred_input_residual": 0,
+          "provider_match": false,
+          "source_eq12_match": true
+        }
+      ],
+      "raw_response_examples": []
+    },
+    {
+      "archive": "claude-sonnet-4.5_4runs_mini.tar.gz",
+      "scope": "final completion samples only",
+      "counts": {
+        "records": 2000,
+        "recorded_calls": 2000,
+        "zero_recorded_cost": 0,
+        "native_identity_testable": 0,
+        "native_identity_pass": 0,
+        "negative_input_residual": 0,
+        "provider_comparable": 2000,
+        "provider_within_1pct": 2000,
+        "source_eq12_comparable": 2000,
+        "source_eq12_within_1pct": 0
+      },
+      "models": {
+        "claude-sonnet-4-5-20250929": 2000
+      },
+      "provider_agreement_all_recorded": 1.0,
+      "source_eq12_agreement_all_recorded": 0.0,
+      "examples": [
+        {
+          "record_hash": "0dec3933f1f128eb22bb067c955e3f636d6f66847ae63486f28cf523c41b9a3f",
+          "model": "claude-sonnet-4-5-20250929",
+          "usage": {
+            "prompt_tokens": 126900,
+            "completion_tokens": 839,
+            "cache_creation_input_tokens": 526,
+            "cache_read_input_tokens": 126374,
+            "prompt_tokens_details": {
+              "cached_tokens": 126374,
+              "cache_creation_tokens": 526
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.0524697,
+          "provider_cost": 0.052469699999999994,
+          "provider_reason": null,
+          "source_eq12_cost": 0.0540477,
+          "native_identity": null,
+          "inferred_input_residual": 0,
+          "provider_match": true,
+          "source_eq12_match": false
+        },
+        {
+          "record_hash": "edd0c775501c886b17436452efefaa64cb1bab741f65b3a77340c3b57cbb19c8",
+          "model": "claude-sonnet-4-5-20250929",
+          "usage": {
+            "prompt_tokens": 83162,
+            "completion_tokens": 567,
+            "cache_creation_input_tokens": 2200,
+            "cache_read_input_tokens": 80962,
+            "prompt_tokens_details": {
+              "cached_tokens": 80962,
+              "cache_creation_tokens": 2200
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.0410436,
+          "provider_cost": 0.0410436,
+          "provider_reason": null,
+          "source_eq12_cost": 0.0476436,
+          "native_identity": null,
+          "inferred_input_residual": 0,
+          "provider_match": true,
+          "source_eq12_match": false
+        },
+        {
+          "record_hash": "ab4d942506d19f960b9aaca9b5f220a9ae2249c7d80e057680368fa286292dfc",
+          "model": "claude-sonnet-4-5-20250929",
+          "usage": {
+            "prompt_tokens": 80237,
+            "completion_tokens": 442,
+            "cache_creation_input_tokens": 378,
+            "cache_read_input_tokens": 79859,
+            "prompt_tokens_details": {
+              "cached_tokens": 79859,
+              "cache_creation_tokens": 378
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.0320052,
+          "provider_cost": 0.0320052,
+          "provider_reason": null,
+          "source_eq12_cost": 0.033139199999999994,
+          "native_identity": null,
+          "inferred_input_residual": 0,
+          "provider_match": true,
+          "source_eq12_match": false
+        },
+        {
+          "record_hash": "01a24bfc095d2140211ab093fb87bdc073092eca0e3d872c70293f00d4296264",
+          "model": "claude-sonnet-4-5-20250929",
+          "usage": {
+            "prompt_tokens": 72065,
+            "completion_tokens": 908,
+            "cache_creation_input_tokens": 174,
+            "cache_read_input_tokens": 71891,
+            "prompt_tokens_details": {
+              "cached_tokens": 71891,
+              "cache_creation_tokens": 174
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.0358398,
+          "provider_cost": 0.035839800000000005,
+          "provider_reason": null,
+          "source_eq12_cost": 0.0363618,
+          "native_identity": null,
+          "inferred_input_residual": 0,
+          "provider_match": true,
+          "source_eq12_match": false
+        },
+        {
+          "record_hash": "aba896f418498bda46f0aa9f65dc29e211ec55b257a71cdba24f92125ca021a6",
+          "model": "claude-sonnet-4-5-20250929",
+          "usage": {
+            "prompt_tokens": 70967,
+            "completion_tokens": 552,
+            "cache_creation_input_tokens": 2471,
+            "cache_read_input_tokens": 68496,
+            "prompt_tokens_details": {
+              "cached_tokens": 68496,
+              "cache_creation_tokens": 2471
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.03809505,
+          "provider_cost": 0.038095050000000005,
+          "provider_reason": null,
+          "source_eq12_cost": 0.04550805,
+          "native_identity": null,
+          "inferred_input_residual": 0,
+          "provider_match": true,
+          "source_eq12_match": false
+        }
+      ],
+      "raw_response_examples": []
+    },
+    {
+      "archive": "claude-sonnet-4_4runs_mini.tar.gz",
+      "scope": "final completion samples only",
+      "counts": {
+        "records": 2000,
+        "recorded_calls": 2000,
+        "zero_recorded_cost": 0,
+        "native_identity_testable": 0,
+        "native_identity_pass": 0,
+        "negative_input_residual": 2000,
+        "provider_comparable": 0,
+        "provider_within_1pct": 0,
+        "source_eq12_comparable": 2000,
+        "source_eq12_within_1pct": 2000,
+        "inconsistent_token_classes": 2000
+      },
+      "models": {
+        "litellm_proxy/claude-sonnet-4-20250514": 2000
+      },
+      "provider_agreement_all_recorded": 0.0,
+      "source_eq12_agreement_all_recorded": 1.0,
+      "examples": [
+        {
+          "record_hash": "71e0353a47dd69261086b9589d5681976278b1b6f52d5fd5051b01a68bfe98e7",
+          "model": "claude-sonnet-4-20250514",
+          "usage": {
+            "prompt_tokens": 87616,
+            "completion_tokens": 1097,
+            "cache_creation_input_tokens": 575,
+            "cache_read_input_tokens": 87616,
+            "prompt_tokens_details": {
+              "cached_tokens": 87616
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.04489605000000001,
+          "provider_cost": null,
+          "provider_reason": "inconsistent_token_classes",
+          "source_eq12_cost": 0.04489605,
+          "native_identity": null,
+          "inferred_input_residual": -575,
+          "provider_match": null,
+          "source_eq12_match": true
+        },
+        {
+          "record_hash": "bfbc5d4d36d7a6021a6e0b08a11d87284878a1432afec35189ad2a43163b0b34",
+          "model": "claude-sonnet-4-20250514",
+          "usage": {
+            "prompt_tokens": 62563,
+            "completion_tokens": 945,
+            "cache_creation_input_tokens": 679,
+            "cache_read_input_tokens": 62563,
+            "prompt_tokens_details": {
+              "cached_tokens": 62563
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.03549015,
+          "provider_cost": null,
+          "provider_reason": "inconsistent_token_classes",
+          "source_eq12_cost": 0.03549014999999999,
+          "native_identity": null,
+          "inferred_input_residual": -679,
+          "provider_match": null,
+          "source_eq12_match": true
+        },
+        {
+          "record_hash": "b51896e81cf5f52db3316eeb61f88b6ca3030f674cf5dfd2b92597111eae3d38",
+          "model": "claude-sonnet-4-20250514",
+          "usage": {
+            "prompt_tokens": 82263,
+            "completion_tokens": 992,
+            "cache_creation_input_tokens": 659,
+            "cache_read_input_tokens": 82263,
+            "prompt_tokens_details": {
+              "cached_tokens": 82263
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.04203015,
+          "provider_cost": null,
+          "provider_reason": "inconsistent_token_classes",
+          "source_eq12_cost": 0.042030149999999995,
+          "native_identity": null,
+          "inferred_input_residual": -659,
+          "provider_match": null,
+          "source_eq12_match": true
+        },
+        {
+          "record_hash": "5f62dbc30e0f175c7a4fe3ac487f52cf606c2056e20cb2ea2d3ffbb6a69980b1",
+          "model": "claude-sonnet-4-20250514",
+          "usage": {
+            "prompt_tokens": 52445,
+            "completion_tokens": 526,
+            "cache_creation_input_tokens": 575,
+            "cache_read_input_tokens": 52445,
+            "prompt_tokens_details": {
+              "cached_tokens": 52445
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.025779750000000004,
+          "provider_cost": null,
+          "provider_reason": "inconsistent_token_classes",
+          "source_eq12_cost": 0.02577975,
+          "native_identity": null,
+          "inferred_input_residual": -575,
+          "provider_match": null,
+          "source_eq12_match": true
+        },
+        {
+          "record_hash": "d99d73b0d4f282cd814bfa26d2de0b11f9354208fbba5a2b0c7830726745ac7b",
+          "model": "claude-sonnet-4-20250514",
+          "usage": {
+            "prompt_tokens": 74905,
+            "completion_tokens": 543,
+            "cache_creation_input_tokens": 731,
+            "cache_read_input_tokens": 74905,
+            "prompt_tokens_details": {
+              "cached_tokens": 74905
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.03335775,
+          "provider_cost": null,
+          "provider_reason": "inconsistent_token_classes",
+          "source_eq12_cost": 0.03335775,
+          "native_identity": null,
+          "inferred_input_residual": -731,
+          "provider_match": null,
+          "source_eq12_match": true
+        }
+      ],
+      "raw_response_examples": []
+    },
+    {
+      "archive": "gpt-5_4runs_mini.tar.gz",
+      "scope": "final completion samples only",
+      "counts": {
+        "records": 1998,
+        "recorded_calls": 1998,
+        "zero_recorded_cost": 0,
+        "native_identity_testable": 0,
+        "native_identity_pass": 0,
+        "negative_input_residual": 0,
+        "provider_comparable": 1998,
+        "provider_within_1pct": 1998,
+        "source_eq12_comparable": 0,
+        "source_eq12_within_1pct": 0
+      },
+      "models": {
+        "gpt-5-2025-08-07": 1998
+      },
+      "provider_agreement_all_recorded": 1.0,
+      "source_eq12_agreement_all_recorded": null,
+      "examples": [
+        {
+          "record_hash": "4be78581fd6ff480e58b04b8a88a74672d0f4a51af4d90ab3ae6901909f7a3e9",
+          "model": "gpt-5-2025-08-07",
+          "usage": {
+            "prompt_tokens": 74466,
+            "completion_tokens": 2069,
+            "prompt_tokens_details": {
+              "cached_tokens": 73216
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1600
+            }
+          },
+          "recorded_cost": 0.0314045,
+          "provider_cost": 0.0314045,
+          "provider_reason": null,
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 1250,
+          "provider_match": true,
+          "source_eq12_match": null
+        },
+        {
+          "record_hash": "43c3038200512bbf736ecd1827e4c7375975e72b38539c36753c5cc0784d2aeb",
+          "model": "gpt-5-2025-08-07",
+          "usage": {
+            "prompt_tokens": 70895,
+            "completion_tokens": 902,
+            "prompt_tokens_details": {
+              "cached_tokens": 70656
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0
+            }
+          },
+          "recorded_cost": 0.01815075,
+          "provider_cost": 0.01815075,
+          "provider_reason": null,
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 239,
+          "provider_match": true,
+          "source_eq12_match": null
+        },
+        {
+          "record_hash": "208660df9e44b4df44ca229f4d6b32d45419745c78a9a93d88c58a92e95aad37",
+          "model": "gpt-5-2025-08-07",
+          "usage": {
+            "prompt_tokens": 32846,
+            "completion_tokens": 887,
+            "prompt_tokens_details": {
+              "cached_tokens": 32768
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 320
+            }
+          },
+          "recorded_cost": 0.013063500000000002,
+          "provider_cost": 0.0130635,
+          "provider_reason": null,
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 78,
+          "provider_match": true,
+          "source_eq12_match": null
+        },
+        {
+          "record_hash": "a06748b5f3a511c105d82d0bf900b92e74b309d5b31ee4cfb5a71c3b036be743",
+          "model": "gpt-5-2025-08-07",
+          "usage": {
+            "prompt_tokens": 34312,
+            "completion_tokens": 1066,
+            "prompt_tokens_details": {
+              "cached_tokens": 33280
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 512
+            }
+          },
+          "recorded_cost": 0.01611,
+          "provider_cost": 0.01611,
+          "provider_reason": null,
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 1032,
+          "provider_match": true,
+          "source_eq12_match": null
+        },
+        {
+          "record_hash": "da89dfbd8161c6e1780e46563a24572a3149e2b956df226a810f6119a014435a",
+          "model": "gpt-5-2025-08-07",
+          "usage": {
+            "prompt_tokens": 30986,
+            "completion_tokens": 2084,
+            "prompt_tokens_details": {
+              "cached_tokens": 29056
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1280
+            }
+          },
+          "recorded_cost": 0.0268845,
+          "provider_cost": 0.0268845,
+          "provider_reason": null,
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 1930,
+          "provider_match": true,
+          "source_eq12_match": null
+        }
+      ],
+      "raw_response_examples": []
+    },
+    {
+      "archive": "qwen3-coder-480b-a35b-instruct-4runs_mini.tar.gz",
+      "scope": "final completion samples only",
+      "counts": {
+        "records": 2000,
+        "recorded_calls": 2000,
+        "zero_recorded_cost": 2000,
+        "native_identity_testable": 0,
+        "native_identity_pass": 0,
+        "negative_input_residual": 0,
+        "provider_comparable": 0,
+        "provider_within_1pct": 0,
+        "source_eq12_comparable": 0,
+        "source_eq12_within_1pct": 0,
+        "unknown_model": 2000
+      },
+      "models": {
+        "Qwen3-Coder-480B-A35B-Instruct-FP8": 2000
+      },
+      "provider_agreement_all_recorded": 0.0,
+      "source_eq12_agreement_all_recorded": null,
+      "examples": [
+        {
+          "record_hash": "f0eba9438421179a04c3461b4ce2d8c5f786296887ad3d11a9fa5f458ab85839",
+          "model": "Qwen3-Coder-480B-A35B-Instruct-FP8",
+          "usage": {
+            "prompt_tokens": 72765,
+            "completion_tokens": 817,
+            "prompt_tokens_details": {
+              "cached_tokens": 72368
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.0,
+          "provider_cost": null,
+          "provider_reason": "unknown_model",
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 397,
+          "provider_match": null,
+          "source_eq12_match": null
+        },
+        {
+          "record_hash": "7601fc388339c8f3935276b3308c7cc0d13ea1a29ff9a18b41611c0f7977e20f",
+          "model": "Qwen3-Coder-480B-A35B-Instruct-FP8",
+          "usage": {
+            "prompt_tokens": 107121,
+            "completion_tokens": 1122,
+            "prompt_tokens_details": {
+              "cached_tokens": 105296
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.0,
+          "provider_cost": null,
+          "provider_reason": "unknown_model",
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 1825,
+          "provider_match": null,
+          "source_eq12_match": null
+        },
+        {
+          "record_hash": "1e929d2e4019674e9d207038011ee1c34c2ebcb8e52c18905d007066c792de0a",
+          "model": "Qwen3-Coder-480B-A35B-Instruct-FP8",
+          "usage": {
+            "prompt_tokens": 69518,
+            "completion_tokens": 724,
+            "prompt_tokens_details": {
+              "cached_tokens": 69264
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.0,
+          "provider_cost": null,
+          "provider_reason": "unknown_model",
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 254,
+          "provider_match": null,
+          "source_eq12_match": null
+        },
+        {
+          "record_hash": "008c322b044dacabdf10388212600f19e12c3041e8b4b74b06cc10c98af10ddb",
+          "model": "Qwen3-Coder-480B-A35B-Instruct-FP8",
+          "usage": {
+            "prompt_tokens": 49559,
+            "completion_tokens": 544,
+            "prompt_tokens_details": {
+              "cached_tokens": 49312
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.0,
+          "provider_cost": null,
+          "provider_reason": "unknown_model",
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 247,
+          "provider_match": null,
+          "source_eq12_match": null
+        },
+        {
+          "record_hash": "4e85ba1e3341f221a502a876378402ded8f8ad101d4024418c34fb0b84b3b0a0",
+          "model": "Qwen3-Coder-480B-A35B-Instruct-FP8",
+          "usage": {
+            "prompt_tokens": 52253,
+            "completion_tokens": 475,
+            "prompt_tokens_details": {
+              "cached_tokens": 51088
+            },
+            "completion_tokens_details": {}
+          },
+          "recorded_cost": 0.0,
+          "provider_cost": null,
+          "provider_reason": "unknown_model",
+          "source_eq12_cost": null,
+          "native_identity": null,
+          "inferred_input_residual": 1165,
+          "provider_match": null,
+          "source_eq12_match": null
+        }
+      ],
+      "raw_response_examples": []
+    }
+  ]
+}

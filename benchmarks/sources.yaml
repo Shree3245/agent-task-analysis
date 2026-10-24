@@ -1,0 +1,26 @@
+sources:
+  openhands-bai:
+    repo: loong0814/openhands_trajectories
+    revision: fa9cbb063f770df596da95af24f7af3b8f595778
+    project: https://longjubai.github.io/agent_token_consumption/
+    license: not_specified
+    include: '*_mini.tar.gz'
+  assert-kth:
+    repo: ASSERT-KTH/agentic-evals-artifacts
+    revision: 5db0c4b69382d160a313d7ceaded915398c63e13
+    project: https://github.com/ASSERT-KTH/agentic-evals-lab
+    license: cc-by-4.0
+    include: '*.jsonl'
+  exgentic:
+    repo: Exgentic/agent-llm-traces
+    revision: 70036b93a04e61b0ea2706a68b962f4f26774587
+    project: https://huggingface.co/datasets/Exgentic/agent-llm-traces
+    license: cdla-permissive-2.0
+    include: '*.parquet'
+  hal:
+    repo: agent-evals/hal_traces
+    revision: e7dcedc82b4f4bc819a170fd6616bdb44841c71e
+    project: https://hal.cs.princeton.edu/
+    license: not_specified
+    include: '*.zip'
+    decrypt_script: https://hal.cs.princeton.edu/static/downloads/hal-decrypt.sh

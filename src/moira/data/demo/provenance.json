@@ -1,0 +1,15 @@
+{
+  "source": "https://huggingface.co/datasets/Exgentic/agent-llm-traces",
+  "revision": "70036b93a04e61b0ea2706a68b962f4f26774587",
+  "license": "CDLA-Permissive-2.0",
+  "selection": "First 20 fully priced sessions per available type in stable source-ID order; IDs hashed before bundling. Demonstration subset, not representative economics.",
+  "tasks": 37,
+  "calls": 873,
+  "types": {
+    "appworld": 20,
+    "tau2_telecom": 2,
+    "swebench": 15
+  },
+  "retained": "Hashed task IDs, types, timestamps, provider/model, and input/output token counts only. No messages or tool arguments.",
+  "recorded_costs": "Not provided by source; no reconciliation claim."
+}

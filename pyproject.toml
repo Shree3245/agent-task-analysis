@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "moira-cost"
+version = "0.1.0"
+description = "Private, offline cost audits and fixed-task pricing for agent logs"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+dependencies = ["duckdb>=1.2,<2", "numpy>=2,<3", "PyYAML>=6,<7", "jinja2>=3.1.6,<4", "ijson>=3.3,<4", "pyarrow>=19"]
+
+[project.scripts]
+moira = "moira.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8", "pytest-socket>=0.7", "ruff>=0.11", "build>=1"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/moira"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--disable-socket"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
