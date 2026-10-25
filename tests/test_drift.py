@@ -6,19 +6,19 @@ import pytest
 import yaml
 
 from synthetic import START, grouped, task
-from moira.analysis.backtest import time_split
-from moira.analysis.drift import data_end, drift, weekly
-from moira.analysis.fixed_price import simulations
-from moira.analysis.grouped import Arrays, cross_validate, partitions, ratios
-from moira.analysis.history import build_history
-from moira.cli import main, select_window
-from moira.pricing.catalog import load_catalog, rates_at
-from moira.pricing.reprice import call_cost
-from moira.privacy import SafeError, task_digest
-from moira.report.model import make_report
-from moira.report.render import render
-from moira.schema import Call
-from moira.storage import connect, save
+from agent_task_analysis.analysis.backtest import time_split
+from agent_task_analysis.analysis.drift import data_end, drift, weekly
+from agent_task_analysis.analysis.fixed_price import simulations
+from agent_task_analysis.analysis.grouped import Arrays, cross_validate, partitions, ratios
+from agent_task_analysis.analysis.history import build_history
+from agent_task_analysis.cli import main, select_window
+from agent_task_analysis.pricing.catalog import load_catalog, rates_at
+from agent_task_analysis.pricing.reprice import call_cost
+from agent_task_analysis.privacy import SafeError, task_digest
+from agent_task_analysis.report.model import make_report
+from agent_task_analysis.report.render import render
+from agent_task_analysis.schema import Call
+from agent_task_analysis.storage import connect, save
 
 
 def history(tasks, catalog=None):
@@ -38,7 +38,7 @@ def stepped(n=120, factor=3.0, outcomes=None):
 
 
 def catalog_file(tmp_path, changes, name="prices.yaml"):
-    data = yaml.safe_load(files("moira.pricing").joinpath("data/prices.v1.yaml").read_text())
+    data = yaml.safe_load(files("agent_task_analysis.pricing").joinpath("data/prices.v1.yaml").read_text())
     data["version"] = "test"
     data["models"]["openai/gpt-4o-mini"]["changes"] = changes
     path = tmp_path / name

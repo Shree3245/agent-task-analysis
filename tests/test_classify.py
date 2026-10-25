@@ -1,5 +1,5 @@
-from moira.classify import classify_task
-from moira.schema import Task, Call
+from agent_task_analysis.classify import classify_task
+from agent_task_analysis.schema import Task, Call
 
 
 def test_explicit_type_preserved_and_rules_use_only_metadata():

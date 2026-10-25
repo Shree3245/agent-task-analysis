@@ -14,7 +14,7 @@ that manifest; raw values and input paths are not.
 
 `task_id` is the keyed HMAC-SHA-256 of `source[:namespace]:source-id`, computed at
 ingest for every source; raw source IDs are never stored. Explicit overrides in
-`classify --map` may still name the source ID (`otel:trace-001`); moira hashes it to
+`classify --map` may still name the source ID (`otel:trace-001`); agent-task-analysis hashes it to
 match. The manifest's `hash_key` is a fingerprint of the install key (never the key);
 databases without a matching fingerprint (another install, or schema 3 and earlier)
 are readable but refuse further writes.

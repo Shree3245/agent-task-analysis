@@ -1,7 +1,7 @@
 import pytest
-from moira.privacy import SafeError
-from moira.pricing.update import update_prices
-from moira.pricing.catalog import validate
+from agent_task_analysis.privacy import SafeError
+from agent_task_analysis.pricing.update import update_prices
+from agent_task_analysis.pricing.catalog import validate
 
 
 def test_price_update_requires_explicit_safe_https_url(tmp_path):

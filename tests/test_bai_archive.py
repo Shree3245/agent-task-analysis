@@ -7,8 +7,8 @@ from pathlib import Path
 import sys
 import tarfile
 
-from moira.adapters.base import Context
-from moira.privacy import group_digest, task_digest
+from agent_task_analysis.adapters.base import Context
+from agent_task_analysis.privacy import group_digest, task_digest
 
 BENCHMARKS = Path(__file__).resolve().parents[1] / "benchmarks"
 sys.path.insert(0, str(BENCHMARKS))

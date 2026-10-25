@@ -1,4 +1,4 @@
-"""Explicit research-only download command. Not imported by the moira package."""
+"""Explicit research-only download command. Not imported by the agent-task-analysis package."""
 
 import argparse
 from concurrent.futures import ThreadPoolExecutor

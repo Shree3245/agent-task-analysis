@@ -359,7 +359,7 @@ Per-type quantiles use linear interpolation; overall weighted quantiles use the 
 
 Task boundaries, cap signals, outcomes and timestamps depend on export coverage. Unknown outcomes remain unknown. Missing timestamps prevent temporal validation; missing models or usage prevent complete-cost pricing. Tools without arguments cannot be assessed for identical-argument loops.
 
-Only sanitized metadata was written by moira. Parsing necessarily uses memory; operating-system swap and external crash collectors are outside this guarantee. Keyed IDs and argument digests are pseudonyms, not anonymization; they are consistent within one moira install only.
+Only sanitized metadata was written by agent-task-analysis. Parsing necessarily uses memory; operating-system swap and external crash collectors are outside this guarantee. Keyed IDs and argument digests are pseudonyms, not anonymization; they are consistent within one agent-task-analysis install only.
 
 Drift ratios and recency prices describe the observed period. A recent window is smaller than the full period, so its prices and intervals are noisier; the current last-window price is in-sample. Rate-change projections hold usage fixed and change only rates.
 

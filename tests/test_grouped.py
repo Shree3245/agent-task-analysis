@@ -8,19 +8,19 @@ import numpy as np
 import pytest
 
 from synthetic import grouped, run_assignments, ungrouped
-from moira.analysis.backtest import time_split
-from moira.analysis.fixed_price import simulations
-from moira.analysis.grouped import (FOLDS, SCENARIOS, Arrays, check_disjoint, cross_validate,
+from agent_task_analysis.analysis.backtest import time_split
+from agent_task_analysis.analysis.fixed_price import simulations
+from agent_task_analysis.analysis.grouped import (FOLDS, SCENARIOS, Arrays, check_disjoint, cross_validate,
                                     group_key, partitions, ratios, repeated_groups)
-from moira.analysis.history import build_history
-from moira.cli import main
-from moira.ingest import merge_task
-from moira.pricing.catalog import load_catalog
-from moira.privacy import SafeError, group_digest, task_digest
-from moira.report.model import make_report
-from moira.report.render import render
-from moira.schema import Task
-from moira.storage import CALL_SQL, connect, load, save
+from agent_task_analysis.analysis.history import build_history
+from agent_task_analysis.cli import main
+from agent_task_analysis.ingest import merge_task
+from agent_task_analysis.pricing.catalog import load_catalog
+from agent_task_analysis.privacy import SafeError, group_digest, task_digest
+from agent_task_analysis.report.model import make_report
+from agent_task_analysis.report.render import render
+from agent_task_analysis.schema import Task
+from agent_task_analysis.storage import CALL_SQL, connect, load, save
 
 GOLDEN = Path(__file__).parent / "fixtures/golden/no-groups.md"
 
@@ -148,7 +148,7 @@ def test_adapters_hash_instance_ids_and_reports_never_show_them(source, tmp_path
     Path("in.json").write_text(json.dumps(record))
     for run in ("run-1", "run-2"):
         assert main(["ingest", source, "in.json", "--namespace", run]) == 0
-    with connect(".moira/moira.duckdb", read_only=True) as conn:
+    with connect(".agent-task-analysis/agent-task-analysis.duckdb", read_only=True) as conn:
         groups = {t.task_group for t in load(conn)}
     assert groups == {group_digest(instance)}
     assert main(["report", "--out", "report.html", "--redact-task-ids"]) == 0
@@ -158,7 +158,7 @@ def test_adapters_hash_instance_ids_and_reports_never_show_them(source, tmp_path
 
 def test_other_adapters_leave_task_group_empty(tmp_path):
     from conftest import FIXTURES
-    from moira.ingest import ingest
+    from agent_task_analysis.ingest import ingest
     ingest("otel", FIXTURES / "otel/sample.json", tmp_path / "db.duckdb")
     with connect(tmp_path / "db.duckdb", read_only=True) as conn:
         assert [t.task_group for t in load(conn)] == [None]

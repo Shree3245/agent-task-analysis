@@ -14,7 +14,7 @@ of GB: review the sizes printed by the scripts and choose an appropriate glob.
 Run from the repository root after `uv sync --locked --group dev`:
 
 ```sh
-DATA_DIR="$HOME/moira-public-data"  # outside the repository; contains public raw data
+DATA_DIR="$HOME/agent-task-analysis-public-data"  # outside the repository; contains public raw data
 mkdir -p "$DATA_DIR"
 ```
 
@@ -113,7 +113,7 @@ uv run python benchmarks/run_reports.py hal \
 ```
 
 The official script also supports `-D "$DATA_DIR/hal"`. Decryption is separate from
-moira. The adapter reads `raw_logging_results`, uses `weave_task_id`, and imports
+agent_task_analysis. The adapter reads `raw_logging_results`, uses `weave_task_id`, and imports
 evaluation outcome IDs. It skips aggregate parent spans when child calls exist.
 Never commit the script's decrypted JSON or input ZIP files.
 

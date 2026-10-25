@@ -7,11 +7,11 @@ import json
 from pathlib import Path
 
 from bai import RESOLUTION_FIELDS, read_archive
-from moira.adapters.base import Context
-from moira.pricing.catalog import load_catalog
-from moira.report.model import make_report
-from moira.report.render import render
-from moira.storage import connect, save, load, manifest
+from agent_task_analysis.adapters.base import Context
+from agent_task_analysis.pricing.catalog import load_catalog
+from agent_task_analysis.report.model import make_report
+from agent_task_analysis.report.render import render
+from agent_task_analysis.storage import connect, save, load, manifest
 
 
 def ingest_archive(path, db):
@@ -143,7 +143,7 @@ def comparison(out_dir):
     md += [f"- [{r['model_archive']}]({r['model_archive']}.md) ([HTML]({r['model_archive']}.html))" for r in results]
     md += ["", "Harness budgets differ across archives (including 100 versus 500 iterations), so this is not a matched-budget model comparison. Each report includes grouped and leave-one-run-out holdouts, the leaky time split for contrast, success-only billing where outcomes and costs are usable, harness cap rates, cost audit, and source limitations.", ""]
     (out_dir / "COMPARISON.md").write_text("\n".join(md))
-    html = '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Moira · Bai model comparison</title><style>body{font:16px system-ui;margin:32px;color:#183237}table{border-collapse:collapse;font-size:14px}td,th{padding:10px;border-bottom:1px solid #ccd;text-align:left}.scroll{overflow:auto}p{max-width:1000px}</style><h1>What this report saw</h1>'
+    html = '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Agent Task Analysis · Bai model comparison</title><style>body{font:16px system-ui;margin:32px;color:#183237}table{border-collapse:collapse;font-size:14px}td,th{padding:10px;border-bottom:1px solid #ccd;text-align:left}.scroll{overflow:auto}p{max-width:1000px}</style><h1>What this report saw</h1>'
     html += '<p>' + escape(intro[2]) + '</p><h2>Model comparison</h2><p>' + escape(intro[6]) + '</p><div class="scroll"><table><tr>'
     html += ''.join('<th>' + escape(v) + '</th>' for v in headings) + '</tr>'
     html += ''.join('<tr>' + ''.join('<td>' + escape(v) + '</td>' for v in row) + '</tr>' for row in rows)

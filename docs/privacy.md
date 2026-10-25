@@ -15,7 +15,7 @@ The parser does not implement a raw-input cache, dead-letter queue, or debug dum
 The CLI catches parser/database exceptions without printing their messages or locals:
 those exceptions can quote the rejected input. It emits fixed safe error codes.
 Raw source contents still occupy process memory while being parsed. The guarantee
-covers moira's writes, not OS swap, external profilers, shell history, or crash collectors.
+covers agent-task-analysis's writes, not OS swap, external profilers, shell history, or crash collectors.
 
 `tests/test_privacy.py` generates a random canary in memory and injects it into each
 source's prompts, outputs, and nested tool arguments. Original inputs are outside
@@ -31,7 +31,7 @@ restrictive Content Security Policy. The package imports no provider SDK or tele
 There are two runtime network opt-ins, and nothing else touches the network.
 `report --update-prices HTTPS_URL` downloads a price catalog: it sends no metadata,
 rejects credentials/query strings, validates the catalog, and supports SHA-256
-verification. `moira braintrust --project NAME` reads that project's logs from the
+verification. `agent-task-analysis braintrust --project NAME` reads that project's logs from the
 Braintrust API (HTTPS only) with an API key taken from `BRAINTRUST_API_KEY` or a hidden
 prompt; the key is never stored or printed. The API returns whole spans, so prompts and
 completions do cross the network into memory: each event is cut down to allowlisted
@@ -40,13 +40,13 @@ metadata (IDs, span name/type, model, provider, numeric metrics, and the `task_t
 text is reduced to its presence, and tool arguments are kept only until they are
 hashed. Nothing raw is written to disk, and the project name is not stored. Separate `benchmarks/` scripts explicitly download
 public research data; they are not installed as runtime CLI commands. HAL decryption
-uses the upstream script outside this repo, not moira's ingest code.
+uses the upstream script outside this repo, not agent-task-analysis's ingest code.
 
 ## Keyed hashing
 
 Task IDs, task groups, benchmark run IDs and tool arguments are hashed with
-HMAC-SHA-256 under a random 32-byte secret, generated on first run at `~/.moira/secret`
-(directory mode 700, file mode 600; override the directory with `MOIRA_HOME`). The
+HMAC-SHA-256 under a random 32-byte secret, generated on first run at `~/.agent-task-analysis/secret`
+(directory mode 700, file mode 600; override the directory with `AGENT_TASK_ANALYSIS_HOME`). The
 secret is never written to a database or a report. Each kind of value is hashed in its
 own domain, so a task ID and a tool argument with the same text do not collide.
 
@@ -62,7 +62,7 @@ data, not its hash.
 
 Task IDs are hashed at ingest, for every source, before anything is stored; the
 database and every report hold only the hash. Databases from before keyed hashing hold
-raw IDs or plain SHA-256: reports still read them (raw IDs are hashed on load), and moira
+raw IDs or plain SHA-256: reports still read them (raw IDs are hashed on load), and agent-task-analysis
 refuses to write more tasks into them. Treat hashes as pseudonyms, not anonymization.
 
 Metadata values can themselves be sensitive: task types, tool names, timing, models,

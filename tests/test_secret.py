@@ -4,15 +4,15 @@ import stat
 import pytest
 
 from conftest import FIXTURES
-from moira import privacy
-from moira.cli import main
-from moira.ingest import ingest
-from moira.privacy import SafeError, digest, group_digest, task_digest
-from moira.storage import connect
+from agent_task_analysis import privacy
+from agent_task_analysis.cli import main
+from agent_task_analysis.ingest import ingest
+from agent_task_analysis.privacy import SafeError, digest, group_digest, task_digest
+from agent_task_analysis.storage import connect
 
 
 def fresh(monkeypatch, home):
-    monkeypatch.setenv("MOIRA_HOME", str(home))
+    monkeypatch.setenv("AGENT_TASK_ANALYSIS_HOME", str(home))
     monkeypatch.setattr(privacy, "_secret", None)
 
 
@@ -73,9 +73,9 @@ def test_database_from_another_install_refuses_writes(tmp_path, monkeypatch):
 def test_grouped_results_do_not_depend_on_the_install_key(tmp_path, monkeypatch):
     import hashlib
     from synthetic import grouped
-    from moira.analysis.grouped import cross_validate
-    from moira.analysis.history import build_history
-    from moira.pricing.catalog import load_catalog
+    from agent_task_analysis.analysis.grouped import cross_validate
+    from agent_task_analysis.analysis.history import build_history
+    from agent_task_analysis.pricing.catalog import load_catalog
 
     def run(salt):
         tasks = grouped(capped_every=9)
@@ -89,10 +89,10 @@ def test_grouped_results_do_not_depend_on_the_install_key(tmp_path, monkeypatch)
 
 def test_time_split_interval_does_not_depend_on_task_order():
     from synthetic import ungrouped
-    from moira.analysis.backtest import time_split
-    from moira.analysis.fixed_price import simulations
-    from moira.analysis.history import build_history
-    from moira.pricing.catalog import load_catalog
+    from agent_task_analysis.analysis.backtest import time_split
+    from agent_task_analysis.analysis.fixed_price import simulations
+    from agent_task_analysis.analysis.history import build_history
+    from agent_task_analysis.pricing.catalog import load_catalog
 
     h = build_history(ungrouped(), load_catalog())
     _, train, test, _ = time_split(h)

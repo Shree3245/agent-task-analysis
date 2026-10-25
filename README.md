@@ -1,8 +1,8 @@
-# Moira
+# Agent Task Analysis
 
 **What do your agent tasks cost—and would a fixed price survive the expensive ones?**
 
-`moira` reads your local agent-log exports, stores metadata in DuckDB, and writes a
+`agent-task-analysis` reads your local agent-log exports, stores metadata in DuckDB, and writes a
 self-contained HTML report plus Markdown. No account, hosted service, telemetry,
 LLM classifier, or network connection is needed.
 
@@ -14,7 +14,7 @@ LLM classifier, or network connection is needed.
 git clone https://github.com/Shree3245/agent-task-analysis.git
 cd agent-task-analysis
 python -m pip install .
-moira demo            # optional: writes demo-report.html from bundled sample data
+agent-task-analysis demo            # optional: writes demo-report.html from bundled sample data
 ```
 
 **2. Load your traces.** Pick the line that matches where your traces live:
@@ -22,15 +22,15 @@ moira demo            # optional: writes demo-report.html from bundled sample da
 ```sh
 # Braintrust: fetches the project's logs directly (asks for the API key if unset)
 export BRAINTRUST_API_KEY=sk-...
-moira braintrust --project "Your Project" --redact-task-ids --out report.html
+agent-task-analysis braintrust --project "Your Project" --redact-task-ids --out report.html
 # ...that one command also writes the report: skip to step 4.
 
 # A file or folder you exported (JSON, JSONL or Parquet):
-moira ingest otel ./traces.json          # OpenTelemetry GenAI spans (OTLP JSON)
-moira ingest langfuse ./langfuse-export.json
-moira ingest langsmith ./runs.jsonl
-moira ingest litellm ./spend-logs.json
-moira ingest csv ./calls.csv --columns columns.yaml   # any table: see "Generic CSV"
+agent-task-analysis ingest otel ./traces.json          # OpenTelemetry GenAI spans (OTLP JSON)
+agent-task-analysis ingest langfuse ./langfuse-export.json
+agent-task-analysis ingest langsmith ./runs.jsonl
+agent-task-analysis ingest litellm ./spend-logs.json
+agent-task-analysis ingest csv ./calls.csv --columns columns.yaml   # any table: see "Generic CSV"
 ```
 
 Each source has its own export steps and field list under
@@ -39,10 +39,10 @@ Each source has its own export steps and field list under
 **3. Write the report:**
 
 ```sh
-moira report --redact-task-ids --out report.html
+agent-task-analysis report --redact-task-ids --out report.html
 ```
 
-This reads `.moira/moira.duckdb`, the default database for `ingest`. It also writes
+This reads `.agent-task-analysis/agent-task-analysis.duckdb`, the default database for `ingest`. It also writes
 `report.md` next to the HTML. Nothing is sent anywhere. The report opens in your
 browser when it's written; pass `--no-open` to skip that (it is also skipped when
 output is piped or run from a script).
@@ -63,7 +63,7 @@ output is piped or run from a script).
   price list. See the *Unknown models* table, then add their rates with
   `--rates rates.yaml` (format in [methodology](docs/methodology.md)).
 - **One task type called `unknown`:** your traces carry no task type. Assign types with
-  `moira classify --map types.yaml` (rules by tool name or call count, or per-task
+  `agent-task-analysis classify --map types.yaml` (rules by tool name or call count, or per-task
   overrides), or set `task_type` on your root spans and re-export.
 - **Tasks look split or merged wrongly:** the source needs a task or trace ID on every
   call. *What this report saw* lists `inferred_task_identity` under import limitations
@@ -75,21 +75,21 @@ Python 3.11 or newer:
 
 ```sh
 python -m pip install .
-moira demo --out demo-report.html
+agent-task-analysis demo --out demo-report.html
 ```
 
 For development:
 
 ```sh
 uv sync --locked --group dev
-uv run moira demo
+uv run agent-task-analysis demo
 uv run pytest -q                  # sockets blocked throughout the test suite
 uv run ruff check src tests benchmarks
 uv build
 ```
 
-The distribution is named `moira-cost`; the executable and import package are
-`moira`. Install from this checkout or its wheel; publication to PyPI is not part
+The distribution is named `agent-task-analysis`; the executable and import package are
+`agent-task-analysis`. Install from this checkout or its wheel; publication to PyPI is not part
 of this repository's setup. Installation itself may download dependencies. After
 installation, ingest, classify, report, and demo work offline.
 
@@ -112,13 +112,13 @@ before writing. It never stages raw logs on disk. Diagnostics use fixed error co
 without payload excerpts or traceback locals. Original files are opened read-only.
 Argument hashes can reveal repeated inputs; hashes are pseudonyms, not encryption.
 
-Default commands do not fetch anything; `moira braintrust` (below) is an explicit
+Default commands do not fetch anything; `agent-task-analysis braintrust` (below) is an explicit
 network opt-in. DuckDB external access and extension
 auto-install/load are disabled. Reports contain inline SVG/CSS, no CDN, and a policy
 that blocks external resources. The only runtime network opt-in is:
 
 ```sh
-moira report --update-prices https://your-public-host/prices.v2.yaml \
+agent-task-analysis report --update-prices https://your-public-host/prices.v2.yaml \
   --prices-sha256 EXPECTED_SHA256 --out report.html
 ```
 
@@ -135,9 +135,9 @@ Read [the privacy boundary](docs/privacy.md) and [canonical schema](docs/schema.
 ## Your first report
 
 ```sh
-moira ingest otel ./export.json --db .moira/company.duckdb
-moira classify --map ./types.yaml --db .moira/company.duckdb
-moira report --db .moira/company.duckdb --target 0.7 \
+agent-task-analysis ingest otel ./export.json --db .agent-task-analysis/company.duckdb
+agent-task-analysis classify --map ./types.yaml --db .agent-task-analysis/company.duckdb
+agent-task-analysis report --db .agent-task-analysis/company.duckdb --target 0.7 \
   --redact-task-ids --out report.html
 ```
 
@@ -150,7 +150,7 @@ never when stdout is not a terminal). `report.md` is written alongside it. Each 
 with **What this report saw**, including source fields read, canonical fields kept,
 missing-data warnings, and the statement that no content was retained.
 
-The default database is `.moira/moira.duckdb`. Use a different `--db` per collection.
+The default database is `.agent-task-analysis/agent-task-analysis.duckdb`. Use a different `--db` per collection.
 Use `--namespace run-02` when different runs reuse task IDs. A whole-task reimport is
 idempotent; a different history for an existing task is rejected rather than appended
 or silently overwritten. Ingest a complete export for a run, or use a fresh database
@@ -163,7 +163,7 @@ metadata-only rules > `unknown`. See [mapping](config/types.example.yaml),
 ## Five-minute quickstarts by source
 
 All commands below operate on a local export. Exporting from a hosted logging product
-is a separate action performed with that product's UI/API; moira never authenticates
+is a separate action performed with that product's UI/API; agent-task-analysis never authenticates
 to it. A directory input recursively reads supported files. Keep unrelated exports
 and downloaded manifest files outside the directory passed to `ingest`.
 
@@ -176,8 +176,8 @@ timestamps, `gen_ai.request.model`, and usage attributes. Prefer `task.type` and
 `task.outcome`; otherwise classification uses tool metadata.
 
 ```sh
-moira ingest otel ./otel.json --db .moira/otel.duckdb
-moira report --db .moira/otel.duckdb --out otel-report.html
+agent-task-analysis ingest otel ./otel.json --db .agent-task-analysis/otel.duckdb
+agent-task-analysis report --db .agent-task-analysis/otel.duckdb --out otel-report.html
 ```
 
 Tool events use `gen_ai.tool.name` and `gen_ai.tool.call.arguments`; tool calls inside
@@ -190,7 +190,7 @@ One command fetches a project's logs, imports metadata only, and writes the repo
 
 ```sh
 export BRAINTRUST_API_KEY=...        # or leave unset to be prompted; never stored
-moira braintrust --project "Support Bot" --redact-task-ids
+agent-task-analysis braintrust --project "Support Bot" --redact-task-ids
 ```
 
 Each trace (`root_span_id`) is one task. LLM spans are model calls (`metadata.model`,
@@ -203,8 +203,8 @@ outcome. Scorer spans are skipped. Options: `--org` when a project name exists i
 organizations, `--api-url https://api-eu.braintrust.dev` or a self-hosted data plane,
 `--days` (default 90), `--settle-minutes` (default 30: traces active more recently may
 still be running and are left out), and the usual report flags. Each run writes a new
-database under `.moira/`. Saved fetch responses or JSON/JSONL exports of the same events
-import with `moira ingest braintrust FILE`.
+database under `.agent-task-analysis/`. Saved fetch responses or JSON/JSONL exports of the same events
+import with `agent-task-analysis ingest braintrust FILE`.
 
 ### Langfuse
 
@@ -215,8 +215,8 @@ Export traces with their observations, or generation/observation records retaini
 and unrelated spans are not counted again.
 
 ```sh
-moira ingest langfuse ./langfuse-export.json --db .moira/langfuse.duckdb
-moira report --db .moira/langfuse.duckdb --out langfuse-report.html
+agent-task-analysis ingest langfuse ./langfuse-export.json --db .agent-task-analysis/langfuse.duckdb
+agent-task-analysis report --db .agent-task-analysis/langfuse.duckdb --out langfuse-report.html
 ```
 
 [Supported fixture](tests/fixtures/langfuse/sample.json).
@@ -229,8 +229,8 @@ Export a run tree with `child_runs`, or flat runs retaining `trace_id`. Preserve
 on a root is inherited by nested children.
 
 ```sh
-moira ingest langsmith ./langsmith-runs.jsonl --db .moira/langsmith.duckdb
-moira report --db .moira/langsmith.duckdb --out langsmith-report.html
+agent-task-analysis ingest langsmith ./langsmith-runs.jsonl --db .agent-task-analysis/langsmith.duckdb
+agent-task-analysis report --db .agent-task-analysis/langsmith.duckdb --out langsmith-report.html
 ```
 
 [Supported fixture](tests/fixtures/langsmith/sample.json). A span called “successful”
@@ -243,8 +243,8 @@ counts/details, `startTime`/`endTime`, and task/session metadata. If no task/ses
 identifier exists, each request becomes one task and the report flags that fallback.
 
 ```sh
-moira ingest litellm ./spend.jsonl --db .moira/litellm.duckdb
-moira report --db .moira/litellm.duckdb --out litellm-report.html
+agent-task-analysis ingest litellm ./spend.jsonl --db .agent-task-analysis/litellm.duckdb
+agent-task-analysis report --db .agent-task-analysis/litellm.duckdb --out litellm-report.html
 ```
 
 [Supported fixture](tests/fixtures/litellm/sample.json). Costs and tokens must describe
@@ -257,8 +257,8 @@ is read when available; `info.exit_status` supplies terminal/limit information.
 Aggregate-only model statistics do not become invented per-call token counts.
 
 ```sh
-moira ingest mini-swe-agent ./mini-trajectories/ --namespace run-01 --db .moira/mini.duckdb
-moira report --db .moira/mini.duckdb --out mini-report.html
+agent-task-analysis ingest mini-swe-agent ./mini-trajectories/ --namespace run-01 --db .agent-task-analysis/mini.duckdb
+agent-task-analysis report --db .agent-task-analysis/mini.duckdb --out mini-report.html
 ```
 
 [Supported fixture](tests/fixtures/mini-swe-agent/sample.json). ASSERT-KTH's nano-agent
@@ -272,8 +272,8 @@ Use `.traj` files containing `trajectory` steps plus `info`. Each step's `usage`
 the tool name `shell`; commands are never stored or used for classification.
 
 ```sh
-moira ingest swe-agent ./swe-trajectories/ --namespace run-01 --db .moira/swe.duckdb
-moira report --db .moira/swe.duckdb --out swe-report.html
+agent-task-analysis ingest swe-agent ./swe-trajectories/ --namespace run-01 --db .agent-task-analysis/swe.duckdb
+agent-task-analysis report --db .agent-task-analysis/swe.duckdb --out swe-report.html
 ```
 
 [Supported fixture](tests/fixtures/swe-agent/sample.json). Turn, dollar, and timeout
@@ -288,8 +288,8 @@ When using individual completion files, preserve task IDs or use the benchmark
 archive reader for the published run/task directory layout.
 
 ```sh
-moira ingest openhands ./output.jsonl --namespace run-01 --db .moira/openhands.duckdb
-moira report --db .moira/openhands.duckdb --out openhands-report.html
+agent-task-analysis ingest openhands ./output.jsonl --namespace run-01 --db .agent-task-analysis/openhands.duckdb
+agent-task-analysis report --db .agent-task-analysis/openhands.duckdb --out openhands-report.html
 ```
 
 [Supported fixture](tests/fixtures/openhands/sample.json). See
@@ -299,15 +299,15 @@ archives retain final completions only and cannot establish full task costs.
 ### HAL
 
 Download traces explicitly and decrypt them with HAL's official script, outside this
-repository. Moira accepts the decrypted envelope's `raw_logging_results` or Weave
+repository. Agent Task Analysis accepts the decrypted envelope's `raw_logging_results` or Weave
 call records. It uses `weave_task_id` where available, call usage, timestamps, and
 evaluation success/failure IDs; parent summaries are not deliberately treated as
 additional model calls.
 
 ```sh
 # Decryption instructions and the pinned public script are documented separately.
-moira ingest hal ./decrypted-evaluation.json --db .moira/hal.duckdb
-moira report --db .moira/hal.duckdb --out hal-report.html
+agent-task-analysis ingest hal ./decrypted-evaluation.json --db .agent-task-analysis/hal.duckdb
+agent-task-analysis report --db .agent-task-analysis/hal.duckdb --out hal-report.html
 ```
 
 [Decrypt steps](benchmarks/README.md#hal-decryption),
@@ -322,8 +322,8 @@ prompts or outputs to metadata fields. Unknown/absent usage must be blank, not z
 ```sh
 cp config/csv-columns.example.yaml columns.yaml
 # Edit columns.yaml to match your local CSV headings.
-moira ingest csv ./calls.csv --columns columns.yaml --db .moira/csv.duckdb
-moira report --db .moira/csv.duckdb --out csv-report.html
+agent-task-analysis ingest csv ./calls.csv --columns columns.yaml --db .agent-task-analysis/csv.duckdb
+agent-task-analysis report --db .agent-task-analysis/csv.duckdb --out csv-report.html
 ```
 
 Columns for IDs, models, usage, timestamps, tools, outcomes, and caps are supported;
@@ -339,7 +339,7 @@ arbitrary transformation expressions are not. [Supported fixture](tests/fixtures
    evidence of repetition, not proof that the action was wasteful.
 3. **Caps:** p95/p99/p99.5 show unfinished work and spend avoided. The recommended
    default is p99. Realistic replay pays the crossing call's overshoot; an idealized
-   exact dollar ceiling is shown separately. Moira does not enforce a live cap.
+   exact dollar ceiling is shown separately. Agent Task Analysis does not enforce a live cap.
 4. **Fixed prices:** price is mean cost / target loss ratio; default targets are
    60%, 70%, and 80%. `--target` adds/selects another target while preserving the
    70% verdict scenario. Prices differ with/without the cap.
@@ -363,7 +363,7 @@ Receipts show model calls grouped by tool name, charge each model call once, and
 show no token counts. Tool service fees, compute, review, and refunds are not inferred.
 
 Task IDs, task groups and tool arguments are hashed at ingest with HMAC-SHA-256 under a
-per-install secret (`~/.moira/secret`, mode 600, never stored in a database or report),
+per-install secret (`~/.agent-task-analysis/secret`, mode 600, never stored in a database or report),
 so raw IDs never reach the database or a report. Hashes are consistent within one
 install only; see [privacy](docs/privacy.md).
 `--redact-task-ids` additionally re-aliases them in HTML and Markdown. Review tool/type labels

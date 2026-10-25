@@ -1,6 +1,6 @@
-moira
-Copyright 2026 moira contributors
+agent-task-analysis
+Copyright 2026 agent-task-analysis contributors
 
 The bundled metadata-only demo is derived from Exgentic/agent-llm-traces, revision
 70036b93a04e61b0ea2706a68b962f4f26774587, under CDLA-Permissive-2.0. Its license
-and provenance accompany the sample in src/moira/data/demo/.
+and provenance accompany the sample in src/agent_task_analysis/data/demo/.
