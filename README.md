@@ -166,6 +166,27 @@ Task types use this precedence: explicit mapping > source metadata > ordered
 metadata-only rules > `unknown`. See [mapping](config/types.example.yaml),
 [rules](config/classification.example.yaml), and [CSV columns](config/csv-columns.example.yaml).
 
+### When each call is logged as its own run
+
+A price is per run, so the tool has to know which calls belong to one run: a trace, a
+`task.id`, or a CSV `task_id`. Auto-instrumentation without a parent span often gives
+every model call its own trace, which makes every call a "run". The report warns when
+most runs of a type are a single model call, and when a fifth or more of runs have no
+task type. Fixing the traces is best: wrap each agent run in one parent span, or set
+`task.id` on every call. For history that is already logged, `--gap` rebuilds runs:
+
+```sh
+agent-task-analysis ingest otel ./otel.json --gap 60
+```
+
+Within one task type, a run continues while each next call starts at most 60 seconds
+after the previous one ended. Calls are also split by session or user ID when the
+traces have one (`session.id`, `user.id` or `enduser.id` in OpenTelemetry;
+`metadata.session_id` or `metadata.user_id` in Braintrust; `sessionId` or `userId` in
+Langfuse; a `session` column in CSV), so concurrent users don't merge. That ID is
+hashed in memory and never stored. Without it, the import warns
+`gap_grouping_without_session`. The report labels gap-built runs as estimates.
+
 ## Five-minute quickstarts by source
 
 All commands below operate on a local export. Exporting from a hosted logging product

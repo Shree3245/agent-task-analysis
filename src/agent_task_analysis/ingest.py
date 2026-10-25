@@ -1,4 +1,6 @@
+from collections import defaultdict
 import csv
+from datetime import datetime, timedelta
 import hashlib
 import json
 from pathlib import Path
@@ -46,6 +48,7 @@ def records(path, source):
 def merge_task(target, piece):
     offset = len(target.calls)
     for call in piece.calls:
+        call.task_id = target.task_id
         call.call_idx += offset
         if call.parent_call_idx is not None:
             call.parent_call_idx += offset
@@ -64,6 +67,37 @@ def merge_task(target, piece):
         target.outcome = piece.outcome
     if piece.capped:
         target.capped, target.cap_reason = True, piece.cap_reason
+
+
+def gap_group(grouped, seconds, ctx):
+    """Merge runs logged without a run ID. Within one task type, task group and session, a
+    run that starts at most `seconds` after the previous one ended joins it."""
+    gap = timedelta(seconds=seconds)
+    parts = defaultdict(list)
+    for task in grouped.values():
+        if task.started_at is None:
+            ctx.warn("gap_grouping_skipped_untimed_task")
+            continue
+        parts[(task.task_type, task.task_group, ctx.sessions.get(task.task_id))].append(task)
+    if not ctx.sessions:
+        # Without a session or user ID, overlapping calls from different users can merge.
+        ctx.warn("gap_grouping_without_session")
+    merged = set()
+    for runs in parts.values():
+        runs.sort(key=lambda t: (t.started_at, t.task_id))
+        head = end = None
+        for task in runs:
+            start = datetime.fromisoformat(task.started_at)
+            stop = datetime.fromisoformat(task.ended_at or task.started_at)
+            if head is not None and start - end <= gap:
+                merge_task(head, grouped.pop(task.task_id))
+                merged.add(head.task_id)
+                end = max(end, stop)
+                ctx.warn("runs_merged_by_gap")
+            else:
+                head, end = task, stop
+    for task_id in merged:
+        grouped[task_id].finalize()
 
 
 def ingest(source, path, db, *, namespace="", options=None, benchmark=False):
@@ -117,6 +151,8 @@ def ingest_records(source, stream, db, *, namespace="", options=None, benchmark=
     for task in grouped.values():
         task.finalize()
         classify_task(task, (options or {}).get("rules"))
+    if ctx.options.get("gap_seconds"):
+        gap_group(grouped, ctx.options["gap_seconds"], ctx)
     evidence = {
         "source": source,
         "adapter_version": 1,
@@ -128,7 +164,8 @@ def ingest_records(source, stream, db, *, namespace="", options=None, benchmark=
         "benchmark": bool(benchmark),
         "token_semantics": ctx.options.get("token_semantics", "native"),
         "content_retained": False,
-    } | (extra_evidence or {})
+    } | ({"gap_seconds": ctx.options["gap_seconds"]} if ctx.options.get("gap_seconds") else {}) \
+      | (extra_evidence or {})
     with connect(db) as conn:
         result = save(conn, list(grouped.values()), evidence)
     return result | {"warnings": ctx.warnings}

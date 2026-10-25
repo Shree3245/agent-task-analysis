@@ -19,6 +19,7 @@ ALLOWED = {
     "cache_write_input_tokens",
     "output_tokens",
     "reasoning_tokens",
+    "session",
 }
 
 
@@ -39,6 +40,7 @@ def extract(row, ctx, fallback):
         outcome=values.get("outcome"),
         capped=values.get("capped"),
         reason=values.get("cap_reason"),
+        session=values.get("session"),
     )
     call = model_call(
         ctx,

@@ -56,6 +56,33 @@ def more_reason(g, row, cutoff, min_samples):
     return f"Only {row['test_uncapped']} {unit} {where} to test a price on. It needs {min_samples}."
 
 
+def tagging(report):
+    """Notes when the traces don't seem to mark where a run starts and ends, or what kind it is."""
+    imports = report["evidence"].get("imports", [])
+    gap = max((i.get("gap_seconds") or 0 for i in imports), default=0)
+    notes = []
+    if gap:
+        notes.append(f"Runs were rebuilt by grouping calls with no run ID wherever there was a quiet gap "
+                     f"of {gap:g} seconds, so run counts and prices are estimates.")
+        if any((i.get("warnings") or {}).get("gap_grouping_without_session") for i in imports):
+            notes.append("The traces had no session or user ID, so overlapping calls from different "
+                         "users may have been merged into one run.")
+    else:
+        single = [g["name"] for g in report["groups"]
+                  if g["n_total"] >= report["min_samples"] and g.get("single_call_share", 0) >= 0.8]
+        if single:
+            notes.append(f"Most runs of {', '.join(single)} are a single model call. If one agent run "
+                         "makes several calls, your traces are probably logging each call as its own "
+                         "run, so these prices are per call. Wrap each run in one parent span or set "
+                         "task.id on every call, or ingest again with --gap 60.")
+    unknown = next((g for g in report["groups"] if g["name"] == "unknown"), None)
+    if unknown and report["n_tasks"] and unknown["n_total"] / report["n_tasks"] >= 0.2:
+        notes.append(f"{unknown['n_total']:,} runs ({unknown['n_total'] / report['n_tasks']:.0%}) have no "
+                     "task type, so they share one blended price. Set task.type (OpenTelemetry) or "
+                     "task_type in metadata (Braintrust), or pass --rules when ingesting.")
+    return notes
+
+
 def group_view(g, report):
     target, min_samples = report["target"], report["min_samples"]
     scope = "grouped_cv" if g["grouped"] else "holdout"
@@ -129,6 +156,7 @@ def view(report):
         "benchmark": report["benchmark"],
         "overrides": bool(report.get("overrides")),
         "repricing": report["reconciliation"]["acceptance"],
+        "tagging": tagging(report),
         "groups": [group_view(g, report) for g in report["groups"]],
     }
 

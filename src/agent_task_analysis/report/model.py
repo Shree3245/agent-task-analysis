@@ -248,6 +248,7 @@ def make_report(
                 "n_total": len(typed),
                 "n_capped": sum(t.task.capped for t in typed),
                 "n_unpriced": sum(not t.complete for t in typed),
+                "single_call_share": sum(t.task.n_calls == 1 for t in typed) / len(typed),
                 "shape": cost_shape(values),
                 "audit": audit(typed, repeat=repeat),
                 "caps": cap_table(typed),

@@ -69,6 +69,8 @@ def extract(root, ctx, fallback):
             outcome=get("task.outcome") or ctx.get(meta, "outcome", "status"),
             capped=get("task.capped", default=False),
             reason=get("task.cap_reason"),
+            session=get("session.id", "user.id", "enduser.id")
+            or ctx.get(meta, "session_id", "user_id"),
         )
         start = ctx.get(span, "startTimeUnixNano", "start_time", "start_time_unix_nano")
         end = ctx.get(span, "endTimeUnixNano", "end_time", "end_time_unix_nano")

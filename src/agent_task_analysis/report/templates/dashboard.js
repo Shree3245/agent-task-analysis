@@ -48,6 +48,7 @@ var notes = [];
 if (D.benchmark) notes.push("These are benchmark tasks, not production traffic.");
 if (D.repricing === "FAIL") notes.push("Repricing did not match your recorded costs. Check the cost audit below before using these prices.");
 if (D.overrides) notes.push("Some prices use rates you supplied, not public list prices.");
+D.tagging.forEach(function (n) { notes.push(n); });
 document.getElementById("d-notes").innerHTML = notes.map(function (n) { return "<p class=\"d-note\">" + esc(n) + "</p>"; }).join("");
 document.getElementById("d-sub").textContent = "Each price is set to keep a " + pct(MARGIN) + " margin after model costs, then tested on runs it never saw. Pick a task type to see why.";
 
