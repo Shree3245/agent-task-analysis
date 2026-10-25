@@ -4,6 +4,8 @@ from importlib.resources import files
 
 from jinja2 import Environment, BaseLoader, select_autoescape
 
+from agent_task_analysis.report.dashboard import data_json, script, script_hash
+
 
 def usd(value):
     return "—" if value is None else f"${value:,.4f}"
@@ -101,6 +103,14 @@ def sections(report):
         f"Temporal cutoff: {report['cutoff'] or 'unavailable'}; {report['split_excluded']} tasks excluded from the split (missing time or crossing the boundary). Minimum {report['min_samples']} uncapped tasks per training and test partition.",
         f"Actual known spend: {usd(report['known_spend'])}. Overall distribution weights each of {report['priced_types']} represented types equally. Counts and total dollars are accounting totals, not type-balanced statistics.",
     ]
+    moved = [g for g in report["groups"] if g["split"]["backdated"]]
+    if moved:
+        s["paragraphs"].append(
+            "Backdated cutoffs: the report-wide cutoff left these pools fewer than "
+            f"{report['min_samples']} uncapped tasks on one side, so each holds out its newest third "
+            f"(at least {report['min_samples']}) and trains only on tasks that ended before them: "
+            + "; ".join(f"{g['name']} from {g['split']['cutoff']}" for g in moved) + "."
+        )
     if report["grouped"]:
         s["paragraphs"].append(
             "Verdict basis where task groups repeat: grouped_cv, five folds that each hold out 20% of task groups with all their runs. Mean price, p99 cap and censoring tail are fit on the training groups only. The verdict interval is the 5th–95th percentile loss ratio of a held-out fold across 1,000 seeded group-bootstrap draws, each rerunning the full cross-validation with refit prices. The pooled out-of-fold interval is shown beside it; with refit mean prices and similar fold sizes the pooled ratio cancels to nearly the target, so it is not a risk measure. The minimum sample threshold counts distinct uncapped groups in each fold. Types without repeated groups keep the time split."
@@ -553,7 +563,9 @@ def render(report, output):
     parts = sections(report)
     template = files("agent_task_analysis.report").joinpath("templates/report.html.j2").read_text()
     env = Environment(loader=BaseLoader(), autoescape=select_autoescape(default=True))
-    html = env.from_string(template).render(sections=parts)
+    source = script()
+    html = env.from_string(template).render(sections=parts, data=data_json(report),
+                                            script=source, script_hash=script_hash(source))
     md = []
 
     def cell(value):

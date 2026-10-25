@@ -18,8 +18,15 @@ def test_offline_demo_and_report_order(tmp_path, monkeypatch):
     ]
     positions = [html.index(title) for title in titles]
     assert positions == sorted(positions)
-    assert "<svg " in html and "<script" not in html
+    assert "<svg " in html
     assert 'src="http' not in html and 'href="http' not in html
+    # The only executable script is the inline dashboard, allowed by its hash; no network.
+    import re
+    from agent_task_analysis.report.dashboard import script, script_hash
+    assert html.count("<script") == 2 and "<script src" not in html
+    assert f"script-src '{script_hash(script())}'" in html and "unsafe-inline'; script" not in html
+    assert re.search(r"<script>(.*?)</script>", html, re.S).group(1) == script()
+    assert 'id="report-data"' in html
     assert (tmp_path / "demo-report.md").exists()
 
 

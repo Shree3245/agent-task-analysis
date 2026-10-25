@@ -1,11 +1,11 @@
 UNPRICED_LIMIT = 0.02
 
 
-def checks(rows, history, min_samples, scope, target):
+def checks(rows, history, min_samples, scope, target, capped=True):
     selected = {
         r["censoring"]: r
         for r in rows
-        if r["scope"] == scope and r["capped"] and abs(r["target"] - target) < 1e-9
+        if r["scope"] == scope and r["capped"] == capped and abs(r["target"] - target) < 1e-9
     }
     scenarios = ["exclude", "inflate"] if any(t.task.capped for t in history) else ["exclude"]
     reasons = []
@@ -32,6 +32,13 @@ def checks(rows, history, min_samples, scope, target):
     if disagreement:
         reasons.append("Censoring scenarios disagree")
     return reasons, disagreement
+
+
+def uncapped_verdict(rows, history, min_samples=30, scope="holdout", target=0.7):
+    """The same interval rule without the p99 cap: what a price shown to end users or
+    billed must pass, since nothing stops runs at the cap."""
+    reasons, _ = checks(rows, history, min_samples, scope, target, capped=False)
+    return {"label": "NOT VIABLE" if reasons else "VIABLE", "reasons": reasons}
 
 
 def verdict(rows, history, min_samples=30, scope="holdout", target=0.7, imputed=None):

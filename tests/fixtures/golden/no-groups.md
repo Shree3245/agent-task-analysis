@@ -22,12 +22,14 @@ Temporal cutoff: 2025-01-07T15:20:01.333333+00:00; 0 tasks excluded from the spl
 
 Actual known spend: $4.5534. Overall distribution weights each of 2 represented types equally. Counts and total dollars are accounting totals, not type-balanced statistics.
 
+Backdated cutoffs: the report-wide cutoff left these pools fewer than 30 uncapped tasks on one side, so each holds out its newest third (at least 30) and trains only on tasks that ended before them: review from 2025-01-07T03:00:00+00:00.
+
 ### Verdicts
 
 | Task type | Tasks | Capped | Unpriced | Verdict | Reason |
 | --- | --- | --- | --- | --- | --- |
 | code | 160 | 4 | 0 | VIABLE | holdout: upper loss-ratio interval stays below 90% at the 70% target with p99 cap |
-| review | 80 | 3 | 0 | NOT VIABLE | exclude: fewer than 30 uncapped tasks in training or holdout; inflate: fewer than 30 uncapped tasks in training or holdout |
+| review | 80 | 3 | 0 | VIABLE | holdout: upper loss-ratio interval stays below 90% at the 70% target with p99 cap |
 
 ### Validation split per pricing pool
 
@@ -59,14 +61,14 @@ Recency-window pricing at the 70% target, p99 cap, capped runs excluded. The ful
 | Type | Fit window | Fit tasks | Fit mean | Recent window (last 30 days) | Recent tasks | Recent mean | Recent ÷ fit | Reprice recommended |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | code | 2025-01-01 – 2025-01-07 | 103 | $0.0180 | 2025-01-01 – 2025-01-10 | 156 | $0.0182 | 1.01 | no |
-| review | 2025-01-01 – 2025-01-07 | 52 | $0.0206 | 2025-01-01 – 2025-01-10 | 77 | $0.0203 | 0.98 | no |
+| review | 2025-01-01 – 2025-01-07 | 47 | $0.0209 | 2025-01-01 – 2025-01-10 | 77 | $0.0203 | 0.97 | no |
 
 ### Recency-window pricing
 
 | Type | Full-period price | Train/test uncapped | Holdout loss ratio | 90% CI | Recent-fit window | Recent-fit price | Train/test uncapped | Holdout loss ratio | 90% CI | Current price (last 30 days, not validated) | Current window tasks |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | code | $0.0257 | 103/53 | 72.6% | 61.8% – 84.2% | 2025-01-01 – 2025-01-07 | $0.0257 | 103/53 | 72.6% | 61.8% – 84.2% | $0.0261 | 156 |
-| review | $0.0295 | 52/25 | 66.7% | 52.2% – 83.2% | 2025-01-01 – 2025-01-07 | $0.0295 | 52/25 | 66.7% | 52.2% – 83.2% | $0.0290 | 77 |
+| review | $0.0299 | 47/30 | 64.8% | 51.8% – 78.3% | 2025-01-01 – 2025-01-07 | $0.0299 | 47/30 | 64.8% | 51.8% – 78.3% | $0.0290 | 77 |
 
 ### Weekly mean cost · complete, uncapped tasks
 
@@ -239,35 +241,35 @@ Overall loss ratios and percentages are arithmetic means across types; intervals
 | in_sample | inflate | p99 | 60.0% | $0.0373 | 60.0% | 51.4% – 69.5% | 15.0% | $0.0477 | 80/80 |
 | in_sample | inflate | p99 | 70.0% | $0.0320 | 70.0% | 59.9% – 81.1% | 23.8% | $0.0530 | 80/80 |
 | in_sample | inflate | p99 | 80.0% | $0.0280 | 80.0% | 68.5% – 92.7% | 31.2% | $0.0570 | 80/80 |
-| holdout | exclude | none | 60.0% | $0.0344 | 57.2% | 44.8% – 71.3% | 16.0% | $0.0275 | 52/25 |
-| holdout | exclude | none | 70.0% | $0.0295 | 66.7% | 52.2% – 83.2% | 24.0% | $0.0324 | 52/25 |
-| holdout | exclude | none | 80.0% | $0.0258 | 76.2% | 59.7% – 95.0% | 28.0% | $0.0361 | 52/25 |
-| holdout | exclude | p99 | 60.0% | $0.0344 | 57.2% | 44.8% – 71.3% | 16.0% | $0.0275 | 52/25 |
-| holdout | exclude | p99 | 70.0% | $0.0295 | 66.7% | 52.2% – 83.2% | 24.0% | $0.0324 | 52/25 |
-| holdout | exclude | p99 | 80.0% | $0.0258 | 76.2% | 59.7% – 95.0% | 28.0% | $0.0361 | 52/25 |
-| holdout | inflate | none | 60.0% | $0.0380 | 56.2% | 42.8% – 70.8% | 11.5% | $0.0267 | 54/26 |
-| holdout | inflate | none | 70.0% | $0.0326 | 65.6% | 50.0% – 82.7% | 19.2% | $0.0321 | 54/26 |
-| holdout | inflate | none | 80.0% | $0.0285 | 74.9% | 57.1% – 94.5% | 26.9% | $0.0362 | 54/26 |
-| holdout | inflate | p99 | 60.0% | $0.0380 | 56.2% | 42.8% – 70.8% | 11.5% | $0.0267 | 54/26 |
-| holdout | inflate | p99 | 70.0% | $0.0326 | 65.6% | 50.0% – 82.7% | 19.2% | $0.0321 | 54/26 |
-| holdout | inflate | p99 | 80.0% | $0.0285 | 74.9% | 57.1% – 94.5% | 26.9% | $0.0362 | 54/26 |
+| holdout | exclude | none | 60.0% | $0.0349 | 55.5% | 44.4% – 67.2% | 13.3% | $0.0270 | 47/30 |
+| holdout | exclude | none | 70.0% | $0.0299 | 64.8% | 51.8% – 78.3% | 20.0% | $0.0320 | 47/30 |
+| holdout | exclude | none | 80.0% | $0.0261 | 74.0% | 59.2% – 89.5% | 26.7% | $0.0357 | 47/30 |
+| holdout | exclude | p99 | 60.0% | $0.0349 | 55.5% | 44.4% – 67.2% | 13.3% | $0.0270 | 47/30 |
+| holdout | exclude | p99 | 70.0% | $0.0299 | 64.8% | 51.8% – 78.3% | 20.0% | $0.0320 | 47/30 |
+| holdout | exclude | p99 | 80.0% | $0.0261 | 74.0% | 59.2% – 89.5% | 26.7% | $0.0357 | 47/30 |
+| holdout | inflate | none | 60.0% | $0.0389 | 53.5% | 42.3% – 65.4% | 9.7% | $0.0258 | 49/31 |
+| holdout | inflate | none | 70.0% | $0.0333 | 62.4% | 49.4% – 76.3% | 16.1% | $0.0314 | 49/31 |
+| holdout | inflate | none | 80.0% | $0.0292 | 71.4% | 56.4% – 87.2% | 22.6% | $0.0356 | 49/31 |
+| holdout | inflate | p99 | 60.0% | $0.0389 | 53.5% | 42.3% – 65.4% | 9.7% | $0.0258 | 49/31 |
+| holdout | inflate | p99 | 70.0% | $0.0333 | 62.4% | 49.4% – 76.3% | 16.1% | $0.0314 | 49/31 |
+| holdout | inflate | p99 | 80.0% | $0.0292 | 71.4% | 56.4% – 87.2% | 22.6% | $0.0356 | 49/31 |
 
 ### Overall · equal type weight
 
 | Scope | Censoring | Cap | Target | Price | Loss ratio | 90% CI | Tasks losing | Worst loss | Train/test |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| holdout | exclude | none | 60.0% | $0.0322 | 59.7% | 51.6% – 68.4% | 19.3% | $0.0286 | 155/78 |
-| holdout | exclude | none | 70.0% | $0.0276 | 69.6% | 60.2% – 79.8% | 25.2% | $0.0328 | 155/78 |
-| holdout | exclude | none | 80.0% | $0.0242 | 79.6% | 68.8% – 91.2% | 28.2% | $0.0361 | 155/78 |
-| holdout | exclude | p99 | 60.0% | $0.0322 | 59.7% | 51.6% – 68.4% | 19.3% | $0.0286 | 155/78 |
-| holdout | exclude | p99 | 70.0% | $0.0276 | 69.6% | 60.2% – 79.8% | 25.2% | $0.0328 | 155/78 |
-| holdout | exclude | p99 | 80.0% | $0.0242 | 79.6% | 68.8% – 91.2% | 28.2% | $0.0361 | 155/78 |
-| holdout | inflate | none | 60.0% | $0.0353 | 59.0% | 50.4% – 68.1% | 16.9% | $0.0627 | 160/80 |
-| holdout | inflate | none | 70.0% | $0.0302 | 68.8% | 58.8% – 79.5% | 21.7% | $0.0673 | 160/80 |
-| holdout | inflate | none | 80.0% | $0.0265 | 78.7% | 67.2% – 90.8% | 28.3% | $0.0708 | 160/80 |
-| holdout | inflate | p99 | 60.0% | $0.0353 | 59.0% | 50.4% – 68.1% | 16.9% | $0.0627 | 160/80 |
-| holdout | inflate | p99 | 70.0% | $0.0302 | 68.8% | 58.8% – 79.5% | 21.7% | $0.0673 | 160/80 |
-| holdout | inflate | p99 | 80.0% | $0.0265 | 78.7% | 67.2% – 90.8% | 28.3% | $0.0708 | 160/80 |
+| holdout | exclude | none | 60.0% | $0.0324 | 58.9% | 51.6% – 66.8% | 18.0% | $0.0286 | 150/83 |
+| holdout | exclude | none | 70.0% | $0.0278 | 68.7% | 60.2% – 78.0% | 23.2% | $0.0328 | 150/83 |
+| holdout | exclude | none | 80.0% | $0.0243 | 78.5% | 68.8% – 89.1% | 27.5% | $0.0361 | 150/83 |
+| holdout | exclude | p99 | 60.0% | $0.0324 | 58.9% | 51.6% – 66.8% | 18.0% | $0.0286 | 150/83 |
+| holdout | exclude | p99 | 70.0% | $0.0278 | 68.7% | 60.2% – 78.0% | 23.2% | $0.0328 | 150/83 |
+| holdout | exclude | p99 | 80.0% | $0.0243 | 78.5% | 68.8% – 89.1% | 27.5% | $0.0361 | 150/83 |
+| holdout | inflate | none | 60.0% | $0.0357 | 57.7% | 49.9% – 65.8% | 15.9% | $0.0627 | 155/85 |
+| holdout | inflate | none | 70.0% | $0.0306 | 67.3% | 58.2% – 76.8% | 20.1% | $0.0673 | 155/85 |
+| holdout | inflate | none | 80.0% | $0.0268 | 76.9% | 66.5% – 87.7% | 26.1% | $0.0708 | 155/85 |
+| holdout | inflate | p99 | 60.0% | $0.0357 | 57.7% | 49.9% – 65.8% | 15.9% | $0.0627 | 155/85 |
+| holdout | inflate | p99 | 70.0% | $0.0306 | 67.3% | 58.2% – 76.8% | 20.1% | $0.0673 | 155/85 |
+| holdout | inflate | p99 | 80.0% | $0.0268 | 76.9% | 66.5% – 87.7% | 26.1% | $0.0708 | 155/85 |
 | in_sample | exclude | none | 60.0% | $0.0321 | 60.0% | 55.0% – 65.2% | 16.1% | $0.0451 | 233/233 |
 | in_sample | exclude | none | 70.0% | $0.0275 | 70.0% | 64.2% – 76.0% | 23.9% | $0.0499 | 233/233 |
 | in_sample | exclude | none | 80.0% | $0.0241 | 80.0% | 73.3% – 86.9% | 33.6% | $0.0535 | 233/233 |
@@ -317,31 +319,31 @@ Up to five deterministic examples per type across the cost range. Each model cal
 | --- | --- | --- |
 | Model-only calls | 2 | $0.0683 |
 
-### review · task-f228962502c7ff37c2965f1d2633c745cef8658ec873eac4ea771275038599a9 · fixed $0.0295 (holdout) · success · capped=False
+### review · task-f228962502c7ff37c2965f1d2633c745cef8658ec873eac4ea771275038599a9 · fixed $0.0299 (holdout) · success · capped=False
 
 | Tool group | Calls/events | Attributed model cost |
 | --- | --- | --- |
 | Model-only calls | 1 | $0.0008 |
 
-### review · task-8c23bb247251de35f3d8fce8df28c1863000659bcd97dc66845be73d6abc19de · fixed $0.0295 (holdout) · success · capped=False
+### review · task-8c23bb247251de35f3d8fce8df28c1863000659bcd97dc66845be73d6abc19de · fixed $0.0299 (holdout) · success · capped=False
 
 | Tool group | Calls/events | Attributed model cost |
 | --- | --- | --- |
 | Model-only calls | 3 | $0.0088 |
 
-### review · task-f6b6d0d62eb661c6d3fd7e35e972a8ed44b4aa2fd6c87b449b82b1b7b1a2319f · fixed $0.0295 (holdout) · success · capped=False
+### review · task-f6b6d0d62eb661c6d3fd7e35e972a8ed44b4aa2fd6c87b449b82b1b7b1a2319f · fixed $0.0299 (holdout) · success · capped=False
 
 | Tool group | Calls/events | Attributed model cost |
 | --- | --- | --- |
 | Model-only calls | 2 | $0.0179 |
 
-### review · task-1cd09acac02b19bc982d23f6b858b3784a06bf11040ad7e25a280e92eb911dae · fixed $0.0295 (holdout) · success · capped=False
+### review · task-1cd09acac02b19bc982d23f6b858b3784a06bf11040ad7e25a280e92eb911dae · fixed $0.0299 (holdout) · success · capped=False
 
 | Tool group | Calls/events | Attributed model cost |
 | --- | --- | --- |
 | Model-only calls | 4 | $0.0284 |
 
-### review · task-e8816c740eb9b470ce55839b91e1070a22ca77e225278ad0fc2866bd542fa337 · fixed $0.0295 (holdout) · success · capped=False
+### review · task-e8816c740eb9b470ce55839b91e1070a22ca77e225278ad0fc2866bd542fa337 · fixed $0.0299 (holdout) · success · capped=False
 
 | Tool group | Calls/events | Attributed model cost |
 | --- | --- | --- |

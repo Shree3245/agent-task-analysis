@@ -47,15 +47,21 @@ This reads `.agent-task-analysis/agent-task-analysis.duckdb`, the default databa
 browser when it's written; pass `--no-open` to skip that (it is also skipped when
 output is piped or run from a script).
 
-**4. Read three things first:**
+**4. Read the answer at the top.** The report opens on a plain-language summary:
+one row per task type with a status (ready to price, ready but costs moved, needs more
+runs, too unpredictable), the price per run, and the margin it kept on runs it wasn't
+fitted on. Click a row for the cost histogram, a price slider that rescales the tested
+margin for any price you pick, and the things to watch for that type. Prices there are
+tested without the p99 cap, because nothing stops a run at the cap once a price is
+published.
 
-- **Summary verdicts:** for each task type, whether a fixed price at a 70% cost ratio
-  would hold up on tasks it wasn't fitted on, and the reason when it wouldn't.
-  `NOT VIABLE` often just means too few tasks (30 are needed on each side of the split).
-- **Fixed-price simulation:** the price per task at each target, with the 90% range of
-  the cost ratio.
-- **Drift and recency:** whether costs moved in the last 30 days, and the price a recent
-  fit would charge now.
+Each type is tested on its newest runs. When the report-wide split leaves fewer than 30
+runs on either side, that type holds out its newest third (at least 30) and fits on the
+runs before it, so a type with about 60 runs or more usually gets a test. The cutoff used
+is shown per type.
+
+The full technical report (verdicts, simulations, drift, refunds, caps) is under
+**Full technical report** below the summary.
 
 **If something looks off:**
 

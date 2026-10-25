@@ -1,22 +1,62 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:; font-src 'none'; base-uri 'none'; form-action 'none'">
-<title>agent-task-analysis · local cost report</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:; font-src 'none'; script-src '{{ script_hash }}'; base-uri 'none'; form-action 'none'">
+<title>agent-task-analysis · pricing report</title>
 <style>
-:root{color-scheme:light;--ink:#162e3e;--muted:#536775;--line:#dbe5e8;--accent:#087f8c}
+:root{color-scheme:light;--ink:#162e3e;--muted:#536775;--faint:#7a8a8f;--line:#dbe5e8;--accent:#087f8c;--sunk:#eef4f3;
+--good:#23704a;--good-soft:#dcefe4;--warn:#9a5b10;--warn-soft:#f6ead6;--bad:#a3302a;--bad-soft:#f6dedb;--bar:#9fb7b2;--bar-over:#c9853a}
 *{box-sizing:border-box}body{margin:0;background:#f3f6f5;color:var(--ink);font:15px/1.65 system-ui,-apple-system,sans-serif}
 main{max-width:1240px;margin:auto;padding:42px 28px 80px}section{background:white;padding:30px 34px;margin-bottom:24px;border:1px solid var(--line);border-radius:12px}
-section:first-child{border-top:6px solid var(--accent)}h1{font-size:32px;line-height:1.2;letter-spacing:-1px}h2{font-size:25px;letter-spacing:-.5px}h3{font-size:16px;margin-top:28px;overflow-wrap:anywhere}
+h1{font-size:32px;line-height:1.2;letter-spacing:-1px}h2{font-size:25px;letter-spacing:-.5px}h3{font-size:16px;margin-top:28px;overflow-wrap:anywhere}
 p{max-width:100ch;color:var(--muted);overflow-wrap:anywhere}table{border-collapse:collapse;width:100%;min-width:720px;font-size:13px;line-height:1.5}th{text-align:left;background:#eef5f4;color:#34515c}th,td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}td{overflow-wrap:anywhere;max-width:420px}td:first-child{min-width:160px}tr:nth-child(even){background:#fbfcfc}.table{overflow-x:auto}svg{width:100%;height:auto;border:1px solid var(--line);border-radius:6px}.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:18px;margin-top:24px}.empty{font-style:italic}
+button{font:inherit;color:inherit}:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.d-head{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}.d-head h1{margin:0}
+.d-label{font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.d-facts{display:flex;flex-wrap:wrap;gap:6px 22px;color:var(--muted);font-size:14px}.d-facts b{color:var(--ink)}
+.d-note{margin:0;color:var(--warn);font-weight:600}
+.d-answer{padding:0;overflow:hidden}.d-answer-top{padding:22px 26px 14px;border-bottom:1px solid var(--line)}.d-answer-top h2{margin:0 0 4px}.d-answer-top p{margin:0}
+.d-row{display:grid;grid-template-columns:170px minmax(0,1.1fr) 130px minmax(0,1.7fr);gap:16px;align-items:center;width:100%;padding:14px 26px;border:0;border-bottom:1px solid var(--line);background:transparent;text-align:left;cursor:pointer}
+.d-row:last-child{border-bottom:0}.d-row:hover,.d-row[aria-selected="true"]{background:var(--sunk)}.d-row[aria-selected="true"]{box-shadow:inset 3px 0 0 var(--accent)}
+.d-name{font-weight:600}.d-runs{font-size:12.5px;color:var(--faint)}.d-why{color:var(--muted);font-size:14px;min-width:0}
+.d-price{font:600 18px/1.2 ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}.d-price small{display:block;font:400 12px system-ui,sans-serif;color:var(--faint)}
+.d-chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:5px 9px;border-radius:999px;white-space:nowrap;justify-self:start}
+.d-chip::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.d-chip.ready{background:var(--good-soft);color:var(--good)}.d-chip.watch{background:var(--warn-soft);color:var(--warn)}.d-chip.more{background:var(--sunk);color:var(--muted)}.d-chip.risky{background:var(--bad-soft);color:var(--bad)}
+.d-split{margin:-6px 0 14px;font-size:14px}.d-dhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin-bottom:14px}.d-dhead h2{margin:0}
+.d-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:18px}
+.d-panel{border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.d-big{font:700 38px/1 system-ui,sans-serif;letter-spacing:-.02em}.d-big small{font:400 15px system-ui,sans-serif;color:var(--muted)}
+.d-panel input{width:100%;accent-color:var(--accent)}.d-ends{display:flex;justify-content:space-between;font-size:12px;color:var(--faint)}
+.d-verdict{margin:0;color:var(--ink)}.d-muted{margin:0;font-size:13.5px}
+.d-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.d-stat{background:white;padding:11px 13px;display:flex;flex-direction:column;gap:3px}.d-stat .v{font:600 20px/1.15 ui-monospace,Menlo,monospace}.d-stat .k{font-size:12.5px;color:var(--muted)}
+.v.good{color:var(--good)}.v.warn{color:var(--warn)}.v.bad{color:var(--bad)}
+.d-reset{align-self:flex-start;background:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:13px;cursor:pointer;color:var(--muted)}
+#d-hist svg{border:0}#d-hist .axis{fill:var(--faint);font:11px ui-monospace,Menlo,monospace}#d-hist .bar{fill:var(--bar)}#d-hist .bar.over{fill:var(--bar-over)}#d-hist .base{stroke:var(--line)}#d-hist .pline{stroke:var(--ink);stroke-width:1.5}#d-hist .plabel{fill:var(--ink);font:600 12px ui-monospace,Menlo,monospace}
+.d-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--muted)}.d-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}.d-legend i.lo{background:var(--bar)}.d-legend i.hi{background:var(--bar-over)}
+.d-watch{display:flex;flex-direction:column;gap:10px;margin-top:18px}.d-watch h3{margin:0}
+.d-item{display:grid;grid-template-columns:4px minmax(0,1fr);gap:14px;border:1px solid var(--line);border-radius:10px;padding:12px 16px 12px 0;overflow:hidden}
+.d-item p{margin:2px 0 0;font-size:14px}.d-item .stripe{border-radius:0 3px 3px 0}.d-item.warn .stripe{background:var(--warn)}.d-item.info .stripe{background:var(--accent)}.d-item.bad .stripe{background:var(--bad)}.d-item.good .stripe{background:var(--good)}
+details.tech>summary{cursor:pointer;font-size:18px;font-weight:600;padding:6px 0 18px}
+@media(max-width:860px){.d-grid{grid-template-columns:1fr}.d-row{grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;padding:14px 16px}.d-row .d-why{grid-column:1 / -1}.d-row .d-price{grid-row:1 / 3;grid-column:2;text-align:right}}
 @media(max-width:650px){main{padding:16px 8px}section{padding:18px 16px}h1{font-size:26px}}
-@media print{body{background:white}main{padding:0}section{border:0;padding:8px;break-inside:auto}tr,svg{break-inside:avoid}h2,h3{break-after:avoid}}
+@media print{body{background:white}main{padding:0}section{border:0;padding:8px;break-inside:auto}tr,svg{break-inside:avoid}h2,h3{break-after:avoid}details.tech{display:block}}
 </style></head><body><main>
+<div class="d-head"><span class="d-label">Agent pricing report</span><h1 id="d-headline">Pricing report</h1><div class="d-facts" id="d-facts"></div><div id="d-notes"></div></div>
+<section class="d-answer"><div class="d-answer-top"><h2>Your answer, by task type</h2><p id="d-sub"></p></div><div id="d-rows" role="tablist" aria-label="Task types"></div></section>
+<section id="d-detail" aria-live="polite"></section>
+<noscript><section><p>The interactive summary needs JavaScript. The full technical report below has every number.</p></section></noscript>
+<details class="tech"><summary>Full technical report</summary>
 {% for section in sections %}<section>
-{% if loop.first %}<h1>{{ section.title }}</h1>{% else %}<h2>{{ section.title }}</h2>{% endif %}
+<h2>{{ section.title }}</h2>
 {% for p in section.paragraphs %}<p>{{ p }}</p>{% endfor %}
 {% for table in section.tables %}<h3>{{ table.title }}</h3><div class="table"><table><thead><tr>{% for h in table.headers %}<th>{{ h }}</th>{% endfor %}</tr></thead><tbody>
 {% for row in table.rows %}<tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>{% endfor %}
 </tbody></table></div>{% if not table.rows %}<p class="empty">No available observations for this table.</p>{% endif %}{% endfor %}
 {% if section.charts %}<div class="charts">{% for chart in section.charts %}{{ chart|safe }}{% endfor %}</div>{% endif %}
 </section>{% endfor %}
-</main></body></html>
+</details>
+</main>
+<script type="application/json" id="report-data">{{ data|safe }}</script>
+<script>{{ script|safe }}</script>
+</body></html>
