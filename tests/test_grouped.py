@@ -107,7 +107,7 @@ def test_without_task_groups_the_time_split_report_is_unchanged(tmp_path):
     md = re.sub(r"Report generated: \S+\.", "Report generated: <time>.",
                 (tmp_path / "r.md").read_text())
     # Golden = the pre-grouping report plus only the task_group field, the split table,
-    # and the drift and recency section.
+    # the drift and recency section, and the review pool's backdated cutoff.
     assert md == GOLDEN.read_text()
     assert "| code | synthetic | 0 | 0 | 0 | 0 | time split | no source in this pool sets task_group" in md
 

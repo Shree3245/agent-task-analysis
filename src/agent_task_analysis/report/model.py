@@ -5,15 +5,15 @@ import hashlib
 import numpy as np
 
 from agent_task_analysis.analysis.audit import audit
-from agent_task_analysis.analysis.backtest import time_split
+from agent_task_analysis.analysis.backtest import backdated_split, time_split
 from agent_task_analysis.analysis.benchmark import outcome_summary
 from agent_task_analysis.analysis.grouped import cross_validate, validation_basis
 from agent_task_analysis.analysis.caps import cap_table
-from agent_task_analysis.analysis.drift import data_end, drift, projection, recency, weekly
+from agent_task_analysis.analysis.drift import data_end, drift, projection, recency, span, weekly
 from agent_task_analysis.analysis.fixed_price import macro_simulations, simulations
 from agent_task_analysis.analysis.history import build_history
 from agent_task_analysis.analysis.shape import cost_shape
-from agent_task_analysis.analysis.verdicts import UNPRICED_LIMIT, verdict
+from agent_task_analysis.analysis.verdicts import UNPRICED_LIMIT, uncapped_verdict, verdict
 from agent_task_analysis.pricing.catalog import change_dates
 from agent_task_analysis.pricing.reprice import reconcile
 from agent_task_analysis.privacy import redacted_id
@@ -141,8 +141,10 @@ def refunds(typed, train, test, grouped, target, seed, min_samples, stress):
             imputed = simulations(train, test, [target], scope=scope, seed=seed, billing=rule,
                                   impute=True) if stress else []
         row = next((r for r in rows if r["censoring"] == "exclude" and r["capped"]), None)
-        result[rule] = {"row": row, "verdict": verdict(rows, typed, min_samples, scope,
-                                                       target=target, imputed=imputed)}
+        uncapped = next((r for r in rows if r["censoring"] == "exclude" and not r["capped"]), None)
+        result[rule] = {"row": row, "row_uncapped": uncapped,
+                        "verdict": verdict(rows, typed, min_samples, scope,
+                                           target=target, imputed=imputed)}
     return result
 
 
@@ -160,7 +162,7 @@ def make_report(
     names = sorted({t.task.task_type for t in history})
     targets = sorted(set([0.6, 0.7, 0.8, target]))
     success_targets = sorted(set(targets) | set(SUCCESS_TARGETS))
-    groups, all_values, weights = [], [], []
+    groups, all_values, weights, split_ids = [], [], [], {}
     for name in names:
         typed = [t for t in history if t.task.task_type == name]
         values = [t.cost for t in typed if t.complete and not t.task.capped]
@@ -168,6 +170,19 @@ def make_report(
         rows = simulations(typed, typed, targets, scope="in_sample", seed=local_seed)
         typed_train = [t for t in train if t.task.task_type == name]
         typed_test = [t for t in test if t.task.task_type == name]
+        basis = validation_basis(typed)
+        grouped = basis["split"] == "grouped_cv"
+        type_cutoff, backdated = cutoff, False
+        uncapped = [sum(not t.task.capped for t in part) for part in (typed_train, typed_test)]
+        if not grouped and min(uncapped) < min_samples:
+            # The report-wide cutoff leaves this pool too few runs on one side; move its
+            # cutoff earlier so its newest runs can still test a price fit before them.
+            moved = backdated_split(typed, min_samples)
+            if moved:
+                type_cutoff, typed_train, typed_test = moved
+                backdated = True
+        split_ids[name] = ({t.task.task_id for t in typed_train},
+                           {t.task.task_id for t in typed_test})
         rows += simulations(typed_train, typed_test, targets, scope="holdout", seed=local_seed)
         # Under the unpriced limit, the verdict must also hold with each unpriced task
         # scored at the training p99; these rows are that stress test.
@@ -190,8 +205,6 @@ def make_report(
             None,
         )
         success_billing = []
-        basis = validation_basis(typed)
-        grouped = basis["split"] == "grouped_cv"
         if grouped:
             # Repeated groups leak across a time split; it stays as a diagnostic column only.
             for scope in ("grouped_cv", "leave_one_run_out"):
@@ -223,8 +236,10 @@ def make_report(
                 "complete_spend": sum(t.cost for t in typed if t.complete),
                 "drift": drift(fit, typed, end, recent_days, min_samples),
                 "weekly": weekly(typed),
-                "recency": recency(typed, typed_train, typed_test, cutoff, end, recent_days,
+                "recency": recency(typed, typed_train, typed_test, type_cutoff, end, recent_days,
                                    target, local_seed, min_samples),
+                "split": {"cutoff": type_cutoff, "backdated": backdated,
+                          "fit_window": span(typed_train), "test_window": span(typed_test)},
                 "refunds": refunds(typed, typed_train, typed_test, grouped, target, local_seed,
                                    min_samples, stress) if outcomes_known else None,
                 "override_share": sum(t.override_cost for t in typed) / spend
@@ -241,6 +256,11 @@ def make_report(
                 "validation": basis,
                 "verdict": verdict(rows, typed, min_samples, "grouped_cv" if grouped else "holdout",
                                    imputed=imputed),
+                "uncapped_verdict": uncapped_verdict(rows, typed, min_samples,
+                                                     "grouped_cv" if grouped else "holdout"),
+                "split_counts": {"train": len(typed_train), "test": len(typed_test)},
+                # Per-task costs without IDs, for the report's interactive charts.
+                "costs": [round(v, 6) for v in sorted(values)],
                 "imputed": imputed,
                 "success_viable": highest_success_target(rows, success_billing, success_imputed,
                                                          typed, min_samples)
@@ -257,7 +277,6 @@ def make_report(
             weights.extend([1 / len(values)] * len(values))
     projections = []
     future = [d for d in change_dates(catalog) if end and d > end.date().isoformat()]
-    split_ids = ({t.task.task_id for t in train}, {t.task.task_id for t in test})
     for date in future:
         at = build_history(tasks, catalog, as_of=date)
         changing = sorted(key for key, rates in catalog["models"].items()
@@ -270,13 +289,14 @@ def make_report(
             local_seed = (seed + int(hashlib.sha256(g["name"].encode()).hexdigest()[:8], 16)) % 2**32
             projections.append({"type": g["name"], "date": date, "models": changing,
                                 "price_now": base["price"] if base else None,
-                                **projection(typed, *split_ids, base["price"] if base else None,
+                                **projection(typed, *split_ids[g["name"]], base["price"] if base else None,
                                              g["complete_spend"], end, recent_days,
                                              target, local_seed)})
     result = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "window": window,
         "data_end": end.isoformat() if end else None,
+        "data_start": min((t.task.started_at for t in history if t.task.started_at), default=None),
         "recent_days": recent_days,
         "drift_limit": 0.25,
         "rate_changes": change_dates(catalog),
