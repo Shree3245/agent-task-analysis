@@ -43,7 +43,7 @@ or extend the report's verdict population.
 | Sonnet 4, compact final completions | 2,000 | Unavailable: every record has reads + writes greater than prompt tokens | 2,000 / 2,000 |
 | GPT-5, compact final completions | 1,998 | 1,998 / 1,998 | Not applicable: Claude-specific equation |
 | Qwen3-Coder-480B, compact final completions | 2,000 | Unavailable: all costs recorded as zero; no verified hosted tariff | Not applicable |
-| Kimi-K2, all final summary calls in full archive | 152,054 | Unavailable: OpenRouter route has no verified historical tariff in Moira | Not applicable |
+| Kimi-K2, all final summary calls in full archive | 152,054 | Unavailable: OpenRouter route has no verified historical tariff in Agent Task Analysis | Not applicable |
 
 The GPT-5 comparison uses $1.25 input, $0.125 cached input, and $10 output per
 million. It is a provider-rate check, not a reproduction of Appendix B Eq. 4:
@@ -55,7 +55,7 @@ inspected raw responses, the recorded output component divided by output tokens
 implies $2.50, $2.50, $3.00, $3.00, and $2.50 per million. One response charges
 all prompt tokens at $0.60 despite reporting cached tokens; another fits a
 $0.15 cache-read rate. These are observed billing components, not tariffs fitted
-into Moira to force agreement. The [OpenRouter model page](https://openrouter.ai/moonshotai/kimi-k2-0905)
+into Agent Task Analysis to force agreement. The [OpenRouter model page](https://openrouter.ai/moonshotai/kimi-k2-0905)
 identifies the route and currently lists $0.60/$2.50 input/output; a current list
 price cannot establish the route used by every historical request.
 
@@ -123,7 +123,7 @@ uv run python benchmarks/audit_bai_costs.py "$DATA_DIR/bai-mini/"*_mini.tar.gz \
   --out benchmarks/results/bai-mini-cost-audit.json
 uv run python benchmarks/audit_bai_costs.py "$DATA_DIR/bai-kimi/kimi-k2_4runs.tar.gz" \
   --out benchmarks/results/bai-kimi-cost-audit.json
-moira report --db "$DATA_DIR/bai.duckdb" --redact-task-ids \
+agent-task-analysis report --db "$DATA_DIR/bai.duckdb" --redact-task-ids \
   --out benchmarks/results/openhands-bai.html
 ```
 

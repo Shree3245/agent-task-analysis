@@ -1,8 +1,8 @@
 from conftest import FIXTURES
 import pytest
-from moira.ingest import ingest
-from moira.storage import connect, load
-from moira.privacy import SafeError, digest
+from agent_task_analysis.ingest import ingest
+from agent_task_analysis.storage import connect, load
+from agent_task_analysis.privacy import SafeError, digest
 
 
 def test_idempotency(tmp_path):

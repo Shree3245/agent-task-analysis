@@ -1,6 +1,6 @@
-from moira.analysis.verdicts import verdict
-from moira.analysis.history import PricedTask
-from moira.schema import Task
+from agent_task_analysis.analysis.verdicts import verdict
+from agent_task_analysis.analysis.history import PricedTask
+from agent_task_analysis.schema import Task
 
 
 def row(mode, upper):

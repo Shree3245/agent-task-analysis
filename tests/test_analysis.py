@@ -1,14 +1,14 @@
 from datetime import datetime, timedelta, timezone
 import numpy as np
 import pytest
-from moira.schema import Task
-from moira.analysis.history import PricedTask
-from moira.analysis.shape import cost_shape
-from moira.analysis.caps import replay
-from moira.analysis.bootstrap import bootstrap_means, interval
-from moira.analysis.backtest import time_split
-from moira.analysis.fixed_price import simulations, macro_simulations
-from moira.analysis.censoring import tail_increment
+from agent_task_analysis.schema import Task
+from agent_task_analysis.analysis.history import PricedTask
+from agent_task_analysis.analysis.shape import cost_shape
+from agent_task_analysis.analysis.caps import replay
+from agent_task_analysis.analysis.bootstrap import bootstrap_means, interval
+from agent_task_analysis.analysis.backtest import time_split
+from agent_task_analysis.analysis.fixed_price import simulations, macro_simulations
+from agent_task_analysis.analysis.censoring import tail_increment
 
 
 def tasks(costs, kind="code", offset=0, capped=False):

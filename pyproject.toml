@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "moira-cost"
+name = "agent-task-analysis"
 version = "0.1.0"
 description = "Private, offline cost audits and fixed-task pricing for agent logs"
 readme = "README.md"
@@ -12,13 +12,13 @@ license = "Apache-2.0"
 dependencies = ["duckdb>=1.2,<2", "numpy>=2,<3", "PyYAML>=6,<7", "jinja2>=3.1.6,<4", "ijson>=3.3,<4", "pyarrow>=19"]
 
 [project.scripts]
-moira = "moira.cli:main"
+agent-task-analysis = "agent_task_analysis.cli:main"
 
 [dependency-groups]
 dev = ["pytest>=8", "pytest-socket>=0.7", "ruff>=0.11", "build>=1"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/moira"]
+packages = ["src/agent_task_analysis"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

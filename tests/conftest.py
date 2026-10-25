@@ -1,20 +1,20 @@
 from pathlib import Path
 import pytest
 
-from moira import privacy
-from moira.ingest import ingest
-from moira.storage import connect, load
-from moira.pricing.catalog import load_catalog
-from moira.pricing.reprice import call_cost
+from agent_task_analysis import privacy
+from agent_task_analysis.ingest import ingest
+from agent_task_analysis.storage import connect, load
+from agent_task_analysis.pricing.catalog import load_catalog
+from agent_task_analysis.pricing.reprice import call_cost
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
 
 @pytest.fixture(autouse=True)
-def moira_home(tmp_path_factory, monkeypatch):
-    """Never touch the real ~/.moira: one keyed install per test session."""
-    home = tmp_path_factory.getbasetemp() / "moira-home"
-    monkeypatch.setenv("MOIRA_HOME", str(home))
+def agent_task_analysis_home(tmp_path_factory, monkeypatch):
+    """Never touch the real ~/.agent-task-analysis: one keyed install per test session."""
+    home = tmp_path_factory.getbasetemp() / "agent-task-analysis-home"
+    monkeypatch.setenv("AGENT_TASK_ANALYSIS_HOME", str(home))
     monkeypatch.setattr(privacy, "_secret", None)
     return home
 CSV_OPTIONS = {

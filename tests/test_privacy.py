@@ -4,9 +4,9 @@ import uuid
 import pytest
 import yaml
 from conftest import CSV_OPTIONS, FIXTURES
-from moira.adapters import SOURCES
-from moira.cli import main
-from moira.storage import connect, load, manifest
+from agent_task_analysis.adapters import SOURCES
+from agent_task_analysis.cli import main
+from agent_task_analysis.storage import connect, load, manifest
 
 
 @pytest.mark.parametrize("source", SOURCES)
@@ -37,7 +37,7 @@ def test_canary_never_written(source, tmp_path, monkeypatch, capsys):
     assert main(["classify", "--map", "types.yaml"]) == 0
     assert main(["report", "--out", "report.html", "--redact-task-ids"]) == 0
     assert main(["report", "--out", "unredacted.html"]) == 0
-    with connect(work / ".moira/moira.duckdb", read_only=True) as conn:
+    with connect(work / ".agent-task-analysis/agent-task-analysis.duckdb", read_only=True) as conn:
         for task in load(conn):
             assert canary not in json.dumps(task.row())
             assert canary not in json.dumps([c.row() for c in task.calls])
@@ -60,6 +60,6 @@ def test_error_does_not_echo_parser_content(tmp_path, monkeypatch, capsys):
         assert main(["ingest", "otel", str(bad)]) == 2
         captured = capsys.readouterr()
         assert canary not in captured.out + captured.err
-        assert not (tmp_path / ".moira").exists()
+        assert not (tmp_path / ".agent-task-analysis").exists()
     finally:
         bad.unlink(missing_ok=True)

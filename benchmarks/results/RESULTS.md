@@ -1,6 +1,6 @@
 # Measured results
 
-Generated locally with moira 0.1.0 on 2026-10-23. **Benchmark tasks, not production
+Generated locally with agent-task-analysis 0.1.0 on 2026-10-23. **Benchmark tasks, not production
 workloads.** All reports use the shipped `2026-10-23.1` catalog and hashed task IDs.
 Each HTML has an equivalent Markdown file and a source/checksum provenance manifest.
 
@@ -33,7 +33,7 @@ writes. Cross-model evidence does not establish a universal correction: Sonnet 4
 already matches standard rates, Sonnet 4 has inconsistent inclusive counts, Qwen
 records zero costs, and Kimi lacks a verified historical route tariff. Five raw
 Sonnet 3.7 records also omit native input counts, preventing an independent identity
-check. Moira keeps standard prices unchanged and reports **FAIL**. The conditional
+check. Agent Task Analysis keeps standard prices unchanged and reports **FAIL**. The conditional
 source-formula mode was not enabled; the formula is reproduced only in the offline
 audit. Arithmetic agreement is not independent validation of native token parsing.
 

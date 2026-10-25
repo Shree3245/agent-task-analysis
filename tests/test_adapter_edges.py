@@ -3,14 +3,14 @@ import json
 
 import pytest
 from conftest import FIXTURES, CSV_OPTIONS
-from moira.adapters import adapter, SOURCES
-from moira.adapters.base import Context
-from moira.analysis.history import build_history
-from moira.pricing.catalog import load_catalog
-from moira.privacy import SafeError
-from moira.schema import status
-from moira.ingest import ingest
-from moira.storage import connect, load
+from agent_task_analysis.adapters import adapter, SOURCES
+from agent_task_analysis.adapters.base import Context
+from agent_task_analysis.analysis.history import build_history
+from agent_task_analysis.pricing.catalog import load_catalog
+from agent_task_analysis.privacy import SafeError
+from agent_task_analysis.schema import status
+from agent_task_analysis.ingest import ingest
+from agent_task_analysis.storage import connect, load
 
 
 @pytest.mark.parametrize("source", SOURCES)

@@ -10,8 +10,8 @@ import json
 from pathlib import Path
 import tarfile
 
-from moira.adapters import adapter
-from moira.privacy import run_digest
+from agent_task_analysis.adapters import adapter
+from agent_task_analysis.privacy import run_digest
 
 MAX_RECORD = 128 * 1024 * 1024
 RESOLUTION_FIELDS = {"instance_id", "metadata.max_iterations", "report.resolved_ids",

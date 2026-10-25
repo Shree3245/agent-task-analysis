@@ -1,9 +1,9 @@
 from conftest import CSV_OPTIONS, FIXTURES
-from moira.adapters import SOURCES
-from moira.ingest import ingest
-from moira.storage import connect, load
-from moira.pricing.catalog import load_catalog
-from moira.pricing.reprice import reconcile
+from agent_task_analysis.adapters import SOURCES
+from agent_task_analysis.ingest import ingest
+from agent_task_analysis.storage import connect, load
+from agent_task_analysis.pricing.catalog import load_catalog
+from agent_task_analysis.pricing.reprice import reconcile
 
 
 def test_standard_rate_reference_exports_meet_reconciliation_gate(tmp_path):

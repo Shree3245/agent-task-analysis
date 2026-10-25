@@ -5,11 +5,11 @@ import json
 from pathlib import Path
 import pytest
 
-from moira.pricing.catalog import load_catalog
-from moira.pricing.normalize import normalize
-from moira.pricing.reprice import call_cost, reconcile
-from moira.schema import Call, Task
-from moira.privacy import SafeError
+from agent_task_analysis.pricing.catalog import load_catalog
+from agent_task_analysis.pricing.normalize import normalize
+from agent_task_analysis.pricing.reprice import call_cost, reconcile
+from agent_task_analysis.schema import Call, Task
+from agent_task_analysis.privacy import SafeError
 
 
 spec = importlib.util.spec_from_file_location(

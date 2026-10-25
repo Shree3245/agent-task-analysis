@@ -3,14 +3,14 @@ import uuid
 
 import pytest
 
-from moira.adapters.braintrust import extract
-from moira.adapters.base import Context
-from moira.cli import main
-from moira.pricing.catalog import load_catalog
-from moira.pricing.reprice import call_cost
-from moira.privacy import SafeError
-from moira.remote import braintrust as remote
-from moira.storage import connect, load, manifest
+from agent_task_analysis.adapters.braintrust import extract
+from agent_task_analysis.adapters.base import Context
+from agent_task_analysis.cli import main
+from agent_task_analysis.pricing.catalog import load_catalog
+from agent_task_analysis.pricing.reprice import call_cost
+from agent_task_analysis.privacy import SafeError
+from agent_task_analysis.remote import braintrust as remote
+from agent_task_analysis.storage import connect, load, manifest
 
 NOW = datetime(2025, 3, 1, 12, tzinfo=timezone.utc)
 
@@ -173,7 +173,7 @@ def test_missing_key_fails_without_prompting(monkeypatch, tmp_path):
 def test_report_opens_in_browser_only_on_a_terminal(monkeypatch, tmp_path):
     import webbrowser
 
-    from moira import cli
+    from agent_task_analysis import cli
 
     opened = []
     monkeypatch.setattr(webbrowser, "open", lambda url: opened.append(url) or True)

@@ -3,7 +3,7 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 *.pyc
-.moira/
+.agent-task-analysis/
 dist/
 *.duckdb*
 *.manifest.json

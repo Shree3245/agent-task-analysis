@@ -1,6 +1,6 @@
 from conftest import FIXTURES
-from moira.cli import main
-from moira.ingest import ingest
+from agent_task_analysis.cli import main
+from agent_task_analysis.ingest import ingest
 
 
 def test_offline_demo_and_report_order(tmp_path, monkeypatch):

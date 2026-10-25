@@ -2,7 +2,7 @@
 
 Mini archives are valid for call reconciliation, never for whole-task costs.
 Full archives use final output.jsonl summaries, excluding critic attempts.
-This diagnostic does not change moira's pricing or acceptance criteria.
+This diagnostic does not change agent-task-analysis's pricing or acceptance criteria.
 """
 
 import argparse
@@ -12,11 +12,11 @@ import json
 from pathlib import Path
 import tarfile
 
-from moira.pricing.catalog import load_catalog
-from moira.pricing.normalize import normalize, provider_for
-from moira.pricing.reprice import call_cost
-from moira.privacy import SafeError, label
-from moira.schema import Call
+from agent_task_analysis.pricing.catalog import load_catalog
+from agent_task_analysis.pricing.normalize import normalize, provider_for
+from agent_task_analysis.pricing.reprice import call_cost
+from agent_task_analysis.privacy import SafeError, label
+from agent_task_analysis.schema import Call
 
 
 # Explicit routes observed in these pinned public archives; no fuzzy tariff matching.

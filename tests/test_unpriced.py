@@ -2,11 +2,11 @@ import numpy as np
 import pytest
 
 from synthetic import grouped, unprice
-from moira.analysis.grouped import FOLDS, Arrays, cross_validate, partitions, ratios
-from moira.analysis.history import build_history
-from moira.analysis.verdicts import verdict
-from moira.pricing.catalog import load_catalog
-from moira.report.model import make_report
+from agent_task_analysis.analysis.grouped import FOLDS, Arrays, cross_validate, partitions, ratios
+from agent_task_analysis.analysis.history import build_history
+from agent_task_analysis.analysis.verdicts import verdict
+from agent_task_analysis.pricing.catalog import load_catalog
+from agent_task_analysis.report.model import make_report
 
 
 def history(tasks):
@@ -59,7 +59,7 @@ def test_imputation_scores_unpriced_at_training_p99_and_never_fits_on_them():
 
 
 def test_report_shows_both_verdicts_and_highest_success_target(tmp_path):
-    from moira.report.render import render
+    from agent_task_analysis.report.render import render
     tasks = unprice(grouped(), 100)
     report = make_report(tasks, {"imports": [{"benchmark": True, "source": "synthetic", "files": 1, "records": 200, "fields_read": []}]}, load_catalog(), redact=True)
     g = report["groups"][0]
@@ -75,11 +75,11 @@ def test_report_shows_both_verdicts_and_highest_success_target(tmp_path):
 
 
 def test_highest_success_target_is_the_highest_that_passes():
-    from moira.report.model import SUCCESS_TARGETS
+    from agent_task_analysis.report.model import SUCCESS_TARGETS
     h = history(grouped())
     success = cross_validate(h, list(SUCCESS_TARGETS), scope="grouped_cv", success_only=True, draws=200)
     labels = {t: verdict(success, h, scope="grouped_cv", target=t)["label"] for t in SUCCESS_TARGETS}
-    from moira.report.model import highest_success_target
+    from agent_task_analysis.report.model import highest_success_target
     best = highest_success_target([], success, [], h, 30)["target"]
     passing = [t for t in SUCCESS_TARGETS if labels[t] == "VIABLE"]
     assert best == (max(passing) if passing else None)

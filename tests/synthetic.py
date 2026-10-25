@@ -5,7 +5,7 @@ import hashlib
 
 import numpy as np
 
-from moira.schema import Call, Task
+from agent_task_analysis.schema import Call, Task
 
 START = datetime(2025, 1, 1, tzinfo=timezone.utc)
 

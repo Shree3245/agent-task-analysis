@@ -7,10 +7,10 @@ import json
 from pathlib import Path
 
 from bai import RESOLUTION_FIELDS, read_archive
-from moira.adapters.base import Context
-from moira.cli import write_report
-from moira.ingest import ingest
-from moira.storage import connect, save, manifest
+from agent_task_analysis.adapters.base import Context
+from agent_task_analysis.cli import write_report
+from agent_task_analysis.ingest import ingest
+from agent_task_analysis.storage import connect, save, manifest
 
 
 BAI_ACCOUNTING_LIMITS = [
