@@ -87,7 +87,8 @@ def span(root, ctx, fallback):
             outcome = "fail"
     task = ctx.task(trace, fallback, task_type, outcome=outcome,
                     capped=ctx.get(metadata, "capped", default=False),
-                    reason=ctx.get(metadata, "cap_reason"))
+                    reason=ctx.get(metadata, "cap_reason"),
+                    session=ctx.get(metadata, "session_id", "user_id"))
     start = ctx.get(metrics, "start") or ctx.get(root, "created")
     end = ctx.get(metrics, "end")
     tokens = any(k in metrics for k in ("prompt_tokens", "completion_tokens"))

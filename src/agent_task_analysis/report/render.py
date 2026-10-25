@@ -4,7 +4,7 @@ from importlib.resources import files
 
 from jinja2 import Environment, BaseLoader, select_autoescape
 
-from agent_task_analysis.report.dashboard import data_json, script, script_hash
+from agent_task_analysis.report.dashboard import data_json, script, script_hash, tagging
 
 
 def usd(value):
@@ -103,6 +103,7 @@ def sections(report):
         f"Temporal cutoff: {report['cutoff'] or 'unavailable'}; {report['split_excluded']} tasks excluded from the split (missing time or crossing the boundary). Minimum {report['min_samples']} uncapped tasks per training and test partition.",
         f"Actual known spend: {usd(report['known_spend'])}. Overall distribution weights each of {report['priced_types']} represented types equally. Counts and total dollars are accounting totals, not type-balanced statistics.",
     ]
+    s["paragraphs"].extend(f"Run tagging: {note}" for note in tagging(report))
     moved = [g for g in report["groups"] if g["split"]["backdated"]]
     if moved:
         s["paragraphs"].append(

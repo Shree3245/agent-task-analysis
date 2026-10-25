@@ -132,6 +132,8 @@ def braintrust(args):
 
     if args.days < 1 or args.settle_minutes < 0:
         raise SafeError("invalid_days_or_settle_minutes")
+    if args.gap is not None and args.gap <= 0:
+        raise SafeError("invalid_gap_seconds")
     db = args.db
     if db is None:
         tag = hashlib.sha256(f"{args.org or ''}/{args.project}".encode()).hexdigest()[:10]
@@ -148,7 +150,8 @@ def braintrust(args):
     if not events:
         raise SafeError("no_finished_traces_in_window")
     ingest_records("braintrust", ((f"api:{i}", e) for i, e in enumerate(events)), db,
-                   options={"drop_tasks_without_model_calls": True},
+                   options={"drop_tasks_without_model_calls": True}
+                   | ({"gap_seconds": args.gap} if args.gap else {}),
                    extra_evidence={"remote": stats})
     result = write_report(db, args.out, target=args.target, prices=args.prices,
                           redact=args.redact_task_ids, seed=args.seed,
@@ -173,6 +176,8 @@ def parser():
     ing.add_argument("--columns", type=Path, help="CSV mapping YAML")
     ing.add_argument("--rules", type=Path, help="Metadata-only classifier YAML")
     ing.add_argument("--benchmark", action="store_true")
+    ing.add_argument("--gap", type=float, metavar="SECONDS",
+                     help="Traces without run IDs: group calls into one run until this many quiet seconds")
     cls = sub.add_parser("classify", help="Override task types locally")
     cls.add_argument("--map", required=True, type=Path)
     cls.add_argument("--db", type=Path, default=Path(".agent-task-analysis/agent-task-analysis.duckdb"))
@@ -218,6 +223,8 @@ def parser():
     bt.add_argument("--min-samples", type=int, default=30)
     bt.add_argument("--seed", type=int, default=0)
     bt.add_argument("--redact-task-ids", action="store_true")
+    bt.add_argument("--gap", type=float, metavar="SECONDS",
+                    help="Traces without run IDs: group calls into one run until this many quiet seconds")
     bt.add_argument("--no-open", action="store_true",
                     help="Do not open the report in a browser when it is written")
     demo = sub.add_parser("demo", help="Run bundled metadata sample offline")
@@ -236,6 +243,10 @@ def main(argv=None):
             options = config(args.columns)
             if args.rules:
                 options["rules"] = config(args.rules)["rules"]
+            if args.gap is not None:
+                if args.gap <= 0:
+                    raise SafeError("invalid_gap_seconds")
+                options["gap_seconds"] = args.gap
             result = ingest(
                 args.source,
                 args.path,

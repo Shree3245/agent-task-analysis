@@ -13,6 +13,7 @@ def extract(root, ctx, fallback):
                 outcome=ctx.get(trace, "metadata.outcome", "metadata.status"),
                 capped=ctx.get(trace, "metadata.capped", default=False),
                 reason=ctx.get(trace, "metadata.cap_reason"),
+                session=ctx.get(trace, "sessionId", "session_id", "userId", "user_id"),
             )
             start = ctx.get(obs, "startTime", "start_time", "timestamp")
             end = ctx.get(obs, "endTime", "end_time")

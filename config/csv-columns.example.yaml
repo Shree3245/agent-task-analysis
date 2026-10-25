@@ -17,3 +17,4 @@ columns:
   outcome: outcome
   capped: capped
   cap_reason: cap_reason
+  # session: user_id  # optional: only used by --gap to keep users apart; hashed in memory, never stored

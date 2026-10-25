@@ -20,7 +20,7 @@ API_URL = "https://api.braintrust.dev"
 PAGE_TRACES = 200
 RETRIES = 4
 METADATA = ("model", "provider", "task_type", "task.type", "outcome", "task.outcome",
-            "capped", "cap_reason")
+            "capped", "cap_reason", "session_id", "user_id")
 
 
 def http(method, url, key, body=None):

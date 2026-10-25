@@ -1,6 +1,7 @@
 """Small explicit extractors. Raw records must never reach the store."""
 
 from dataclasses import dataclass, field
+import hashlib
 import json
 
 from agent_task_analysis.privacy import SafeError, digest, group_digest, label, task_digest
@@ -15,6 +16,8 @@ class Context:
     warnings: dict = field(default_factory=dict)
     options: dict = field(default_factory=dict)
     seen: dict = field(default_factory=dict, repr=False)
+    # Task ID -> hash of a session or user ID, for --gap grouping. Held in memory only.
+    sessions: dict = field(default_factory=dict, repr=False)
 
     def warn(self, code):
         self.warnings[code] = self.warnings.get(code, 0) + 1
@@ -59,14 +62,18 @@ class Context:
         capped=False,
         reason=None,
         group=None,
+        session=None,
     ):
         if raw_id is None:
             self.warn("inferred_task_identity")
         key = label(raw_id if raw_id is not None else fallback, limit=768)
         prefix = self.source + (":" + label(self.namespace) if self.namespace else "")
         result, cap, cap_reason = status(outcome, capped, reason)
+        task_id = task_digest(f"{prefix}:{key}")
+        if session not in (None, ""):
+            self.sessions.setdefault(task_id, hashlib.sha256(str(session).encode()).hexdigest())
         return Task(
-            task_digest(f"{prefix}:{key}"),
+            task_id,
             label(task_type),
             self.source,
             timestamp(start),
